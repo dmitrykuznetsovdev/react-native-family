@@ -4,12 +4,14 @@ import promiseMiddleware from 'redux-promise';
 
 import reducers from '_reducers/index'
 import { writeState } from '_middleware/storage';
+import { crashReporter } from '_middleware/crash_reporter';
 
 
 const middlewares = [
   thunkMiddleware,
   promiseMiddleware,
-  writeState
+  writeState,
+  //crashReporter
 ];
 
 let finalCreateStore = applyMiddleware(...middlewares)(createStore);
