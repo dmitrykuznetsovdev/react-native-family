@@ -15,7 +15,7 @@ var aliases = {
   _data: path.join(appPath, 'data'),
   _modules: path.join(appPath, 'modules'),
   _components: path.join(appPath, 'components'),
-  _layouts: path.join(appPath, 'layouts'),
+  _screens: path.join(appPath, 'screens'),
   _moduleDAL: path.join(appPath, 'module_dal'),
   _services: path.join(appPath, 'module_dal/services'),
   _actions: path.join(appPath, 'module_dal/actions'),

@@ -1,0 +1,6 @@
+  {
+  "name": "article_item",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./article_item.js"
+}

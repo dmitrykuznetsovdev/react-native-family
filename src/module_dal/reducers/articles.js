@@ -9,33 +9,11 @@ import {
 } from '_actions/actions';
 
 
-/**
- *
- * Создаем две коллекции стиска статей
- * первая колллекция от 0 до 8
- * вторая от 8
- *
- * нужно разбить для размешения на разных частях страницы
- * @param data
- * @returns {{
- * 	part1: (Array.<T>|string|Buffer|Blob|ArrayBuffer),
- * 	part2: (Array.<T>|string|Buffer|Blob|ArrayBuffer)
- * }}
- */
-function dividedIntoParts(data){
-	let parts = {...data};
-	let part1 = parts.items.slice(0, 8);
-	let part2 = parts.items.slice(8);
-
-	return {part1, part2}
-}
 
 const articles = (state = {
 	detail : {},
 	related : {},
 	items : [],
-	part1 : [],
-	part2 : [],
 	title : 'Статьи',
 	nextPage : ''
 }, action) => {
@@ -43,13 +21,13 @@ const articles = (state = {
 		case GET_ARTICLES:
 			return {
 				...state,
-				...dividedIntoParts(action.data),
+        items : [...action.data.items],
 				nextPage : action.data.page.next
 			}
 		case GET_ARTICLES_BY_RUBRIC:
 			return {
 				...state,
-				...dividedIntoParts(action.data),
+        items : [...action.data.items],
 				nextPage : action.data.page.next
 			}
 		case GET_ARTICLES_BY_RUBRIC_NO_PART:
@@ -73,11 +51,11 @@ const articles = (state = {
 				related : action.data
 			}
 		case GET_ARTICLES_MORE:
-			let oldCollection = state.part2;
+			let oldCollection = state.items;
 			let newCollection = oldCollection.concat(action.data.items);
 			return {
 				...state,
-				part2 : newCollection,
+				items : [...newCollection],
 				nextPage: action.data.page.next
 			}
 		default:

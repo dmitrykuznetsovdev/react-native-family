@@ -4,21 +4,23 @@
  */
 import React, {AppRegistry, Component} from 'react-native';
 import { Provider } from 'react-redux';
-import App from './components/App';
 import store from './store';
+import {Router} from './router';
 
 class Root extends Component {
-  static defaultProps = {
-    ...App.defaultProps,
-    instructions: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu',
-  };
+
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <Provider store={store}>
-        <App />
+        <Router {...this.props} />
       </Provider>
     );
   }
 }
+
 
 AppRegistry.registerComponent('App', () => Root);
