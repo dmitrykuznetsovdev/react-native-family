@@ -22,7 +22,7 @@ class CardFull extends Component {
   }
 
   _onRedirectToFeed(link) {
-    console.log(link, 'link');
+    //console.log(link, 'link');
   }
 
   /**

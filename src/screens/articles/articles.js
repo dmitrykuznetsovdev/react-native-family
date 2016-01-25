@@ -3,10 +3,6 @@ import React, {
   Text,
   View,
   Image,
-  TouchableHighlight,
-  RecyclerViewBackedScrollView,
-  ActivityIndicatorIOS,
-  ListView,
   Component,
   PropTypes
 } from 'react-native';
@@ -38,7 +34,7 @@ class ArticlesScreen extends Component {
 
   componentWillMount() {
     const { dispatch, navigation_params } = this.props;
-    if(navigation_params && navigation_params.rubric) {
+    if (navigation_params && navigation_params.rubric) {
       dispatch(fetchArticlesRubric(navigation_params.rubric))
         .then(this.hideLoader.bind(this))
       dispatch(getRubricsBySlug('articles', id))
@@ -48,7 +44,7 @@ class ArticlesScreen extends Component {
     }
   }
 
-  hideLoader(){
+  hideLoader() {
     setTimeout(()=>this.setState({loader: false}), 1000);
   }
 
@@ -68,9 +64,11 @@ class ArticlesScreen extends Component {
       return this.renderLoadingView()
     }
 
-    return (articles.items.length ?
-        <ArticlesList {...this.props} />
-      : null);
+    return (
+      <View style={styles.container}>
+        {articles.items.length ? <ArticlesList {...this.props} /> : null}
+      </View>
+    );
   }
 }
 

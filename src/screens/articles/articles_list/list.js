@@ -7,6 +7,7 @@ import React, {
   RecyclerViewBackedScrollView,
   ActivityIndicatorIOS,
   ListView,
+  ScrollView,
   Component,
   PropTypes
 } from 'react-native';
@@ -56,6 +57,18 @@ class ArticlesList extends Component {
     }
   }
 
+  renderScrollComponent(){
+
+    return (
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={null}
+        scrollEventThrottle={1}
+        automaticallyAdjustContentInsets={true}
+        directionalLockEnabled={true} />
+    )
+  }
+
   render() {
     const { articles } = this.props;
 
@@ -67,6 +80,7 @@ class ArticlesList extends Component {
       <ListView
         dataSource={dataSource.cloneWithRows(articles.items)}
         renderRow={(props) => <Item {...props} />}
+        renderScrollComponent={this.renderScrollComponent}
         renderFooter={this.renderFooter.bind(this)}
         onEndReachedThreshold={20}
         onEndReached={this._onEndReached.bind(this)}

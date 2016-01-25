@@ -19,6 +19,7 @@ let localNavigator = {
  */
 const Link = (props) => {
   function _onPress(screenId, to) {
+
     localNavigator.push({
       id : screenId,
       navigation_params : {

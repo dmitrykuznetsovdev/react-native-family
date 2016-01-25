@@ -49,6 +49,7 @@ function _navBarRouteMapper() {
     LeftButton: (route, navigator) => {
       return (
         <TouchableOpacity style={styles.crumbIconPlaceholder} onPress={() => { navigator.pop(); }}>
+          <Text>Назад</Text>
           {/*<Icon name="arrow-left" style={styles.crumbIcon}/>*/}
         </TouchableOpacity>
       )
@@ -56,13 +57,14 @@ function _navBarRouteMapper() {
     Title: (route) => {
       return (
         <View style={styles.title}>
-          <Text style={styles.title_blank}>test</Text>
+          <Text style={styles.title_blank}>{route.title || 'TITLE'}</Text>
         </View>
       );
     },
     RightButton: (route) => {
       return (
         <TouchableOpacity style={styles.crumbIconPlaceholder}>
+          <Text>Вперед</Text>
           {/*<Icon name="arrow-right" style={styles.crumbIcon}/>*/}
         </TouchableOpacity>
       )
@@ -102,13 +104,17 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
     lineHeight: device.fontSize(34)
   },
+  title: {
+    backgroundColor: '#315efb',
+    height: device.size(45)
+  },
   title_item: {
     position: 'absolute',
     left: 0,
     right: 0,
     top: device.size(6),
     fontSize: device.fontSize(18),
-    color: '#4c4b4d',
+    color: '#fff',
     textAlign: 'center',
     fontWeight: 'bold',
     lineHeight: device.fontSize(27)
