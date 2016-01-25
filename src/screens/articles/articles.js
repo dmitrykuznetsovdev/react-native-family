@@ -35,12 +35,21 @@ class ArticlesScreen extends Component {
     };
   }
 
+
   componentWillMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchArticles())
-      .then(()=> {
-        setTimeout(()=>this.setState({loader: false}), 1000);
-      })
+    const { dispatch, navigation_params } = this.props;
+    if(navigation_params && navigation_params.rubric) {
+      dispatch(fetchArticlesRubric(navigation_params.rubric))
+        .then(this.hideLoader.bind(this))
+      dispatch(getRubricsBySlug('articles', id))
+    } else {
+      dispatch(fetchArticles())
+        .then(this.hideLoader.bind(this))
+    }
+  }
+
+  hideLoader(){
+    setTimeout(()=>this.setState({loader: false}), 1000);
   }
 
   renderLoadingView() {

@@ -11,21 +11,13 @@ import React, {
   PropTypes
 } from 'react-native';
 import {connect} from 'react-redux';
+import Link from '_components/link';
 import styles from './style';
 
 class Item extends Component {
 
   constructor(props, context) {
     super(props, context);
-  }
-
-  componentWillMount() {
-
-  }
-
-  _pressRow(id) {
-    const {pressRow} = this.props;
-    pressRow(id);
   }
 
   mainTag() {
@@ -71,16 +63,13 @@ class Item extends Component {
   }
 
   render() {
-    const {main_image, main_tag, title, id} = this.props;
+    const {main_image, main_tag, title, id, slug} = this.props;
     const image = main_image && main_image.image_url ? main_image.image_url : '';
 
     return (
-      <TouchableHighlight style={styles.marginBottomItem}
-                          onPress={() => this._pressRow(id)}>
-        <View style={styles.containerArticle}>
-          <Image
-            source={{uri: image}}
-            style={styles.thumbnail}/>
+      <View style={styles.marginBottomItem}>
+        <Link to={slug} screenId="articles_item" style={styles.containerArticle}>
+          <Image source={{uri: image}} style={styles.thumbnail}/>
 
           <View style={styles.rightContainer}>
             <Text style={styles.tags}>
@@ -88,8 +77,8 @@ class Item extends Component {
             </Text>
             <Text style={styles.title}>{title}</Text>
           </View>
-        </View>
-      </TouchableHighlight>
+        </Link>
+      </View>
     );
   }
 }

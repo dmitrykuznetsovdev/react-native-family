@@ -5,7 +5,8 @@ import {
 		GET_ARTICLES_RUBRIC_INFO,
 		GET_ARTICLES_BY_RUBRIC_NO_PART,
 		GET_ARTICLE_DETAIL,
-		GET_ARTICLE_DETAIL_RELATED
+		GET_ARTICLE_DETAIL_RELATED,
+    ARTICLES_SHOW_LOADER
 } from '_actions/actions';
 
 
@@ -15,7 +16,8 @@ const articles = (state = {
 	related : {},
 	items : [],
 	title : 'Статьи',
-	nextPage : ''
+	nextPage : '',
+  loader : false
 }, action) => {
 	switch (action.type){
 		case GET_ARTICLES:
@@ -58,6 +60,11 @@ const articles = (state = {
 				items : [...newCollection],
 				nextPage: action.data.page.next
 			}
+    case ARTICLES_SHOW_LOADER:
+			return {
+				...state,
+        loader : action.loader
+      }
 		default:
 			return {...state}
 

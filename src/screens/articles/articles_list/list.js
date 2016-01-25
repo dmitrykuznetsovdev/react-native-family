@@ -56,11 +56,6 @@ class ArticlesList extends Component {
     }
   }
 
-  onPressRow(id){
-    const { navigator } = this.props;
-    navigator.push({ id : 'articles_item' })
-  }
-
   render() {
     const { articles } = this.props;
 
@@ -71,7 +66,7 @@ class ArticlesList extends Component {
     return (
       <ListView
         dataSource={dataSource.cloneWithRows(articles.items)}
-        renderRow={(props) => <Item {...props} pressRow={this.onPressRow.bind(this)} />}
+        renderRow={(props) => <Item {...props} />}
         renderFooter={this.renderFooter.bind(this)}
         onEndReachedThreshold={20}
         onEndReached={this._onEndReached.bind(this)}

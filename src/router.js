@@ -13,6 +13,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import * as device from '_utils/device';
 import ArticlesScreen from '_screens/articles';
 import ArticleItemScreen from '_screens/article_item';
+import WebViewScreen from '_screens/web_view';
+import {SetNavigator} from '_components/link';
 
 const initialRoute = {
   title: 'App Name Test',
@@ -22,14 +24,18 @@ const initialRoute = {
 
 function renderScene(route, navigator) {
 
-  console.log(route.id, 'route.id');
+  SetNavigator(navigator);
+
   let component;
   switch (route.id) {
     case 'articles':
-      component = <ArticlesScreen navigator={navigator} />;
+      component = <ArticlesScreen navigator={navigator} {...route} />;
       break;
     case 'articles_item':
-      component = <ArticleItemScreen navigator={navigator} />;
+      component = <ArticleItemScreen navigator={navigator} {...route} />;
+      break;
+    case 'web_view':
+      component = <WebViewScreen navigator={navigator} {...route} />;
       break;
     case 'settings':
       component = '';

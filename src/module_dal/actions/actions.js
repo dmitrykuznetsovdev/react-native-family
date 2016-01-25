@@ -12,6 +12,7 @@ export const GET_ARTICLES_RUBRIC_INFO       = 'GET_ARTICLES_RUBRIC_INFO';
 export const GET_ARTICLES_MORE              = 'GET_ARTICLES_MORE';
 export const GET_ARTICLE_DETAIL             = 'GET_ARTICLE_DETAIL';
 export const GET_ARTICLE_DETAIL_RELATED     = 'GET_ARTICLE_DETAIL_RELATED';
+export const ARTICLES_SHOW_LOADER           = 'ARTICLES_SHOW_LOADER';
 
 export const GET_NEWS_LIST           = 'GET_NEWS_LIST';
 export const GET_NEWS_DETAIL         = 'GET_NEWS_DETAIL';

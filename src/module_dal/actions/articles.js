@@ -15,6 +15,7 @@ import {
   GET_ARTICLES_MORE,
   GET_ARTICLES_BY_RUBRIC,
   GET_ARTICLES_BY_RUBRIC_NO_PART,
+  ARTICLES_SHOW_LOADER,
   actionArticlesByRubric,
 } from './actions';
 
@@ -77,10 +78,14 @@ export const loadMoreArticles = (params) => dispatch => {
  * @param slug
  */
 export const getArticleDetail = (slug) => dispatch => {
+
+  dispatch({type: ARTICLES_SHOW_LOADER, loader : true})
+
   return ArticleServices.getArticleId(slug)
-    .then((data)=>
-      dispatch({type: GET_ARTICLE_DETAIL, data})
-    )
+    .then((data)=> {
+      setTimeout(()=> dispatch({type: ARTICLES_SHOW_LOADER, loader : false}) , 1000)
+      return dispatch({type: GET_ARTICLE_DETAIL, data})
+    })
     .catch(failLoadContent);
 }
 

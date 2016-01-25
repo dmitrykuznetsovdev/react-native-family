@@ -2,6 +2,9 @@ const { StyleSheet } = React;
 
 export default StyleSheet.create({
   container: {
+    flex: 1
+  },
+  loader: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',

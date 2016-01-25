@@ -1,0 +1,6 @@
+  {
+  "name": "web_view",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./web_view.js"
+}
