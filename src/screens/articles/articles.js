@@ -3,12 +3,15 @@ import React, {
   Text,
   View,
   Image,
+  TouchableHighlight,
+  ListView,
   Component,
   PropTypes
 } from 'react-native';
 import {connect} from 'react-redux';
 import styles from './style';
-import ArticlesList from './articles_list/list';
+import Item from './item';
+import ScrollListView from '_components/scroll_list_view';
 
 
 import {
@@ -27,7 +30,8 @@ class ArticlesScreen extends Component {
     super(props, context);
 
     this.state = {
-      loader: true
+      loader: true,
+      isLoadingTail: false
     };
   }
 
@@ -56,17 +60,42 @@ class ArticlesScreen extends Component {
     )
   }
 
+  _onEndReached() {
+    let {dispatch, articles } = this.props;
+    let {nextPage} = articles;
+    if (nextPage) {
+      this.setState({isLoadingTail: true})
+      dispatch(loadMoreArticles({url: nextPage, params: {page_size: 14}}))
+        .then(()=>this.setState({isLoadingTail: false}))
+    }
+  }
+
   render() {
     const { articles } = this.props;
-    const { loader } = this.state;
+    const { loader, isLoadingTail } = this.state;
 
     if (loader) {
       return this.renderLoadingView()
     }
 
+    let dataSource = new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 !== row2
+    })
+
+
     return (
       <View style={styles.container}>
-        {articles.items.length ? <ArticlesList {...this.props} /> : null}
+        {articles.items.length ?
+          <ScrollListView
+            dataSource={dataSource.cloneWithRows(articles.items)}
+            renderRow={(props) => <Item {...props} />}
+            pageSize={14}
+            isLoadingTail={isLoadingTail}
+            onEndReached={this._onEndReached.bind(this)}
+            onEndReachedThreshold={20}
+            showsVerticalScrollIndicator={false}
+          />
+          : null}
       </View>
     );
   }

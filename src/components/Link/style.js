@@ -1,9 +1,13 @@
 const { StyleSheet } = React;
 
 export default StyleSheet.create({
-  link : {
-    flex: 1,
-    flexDirection: 'row'
-  }
+  listView: {
+    paddingTop: 20,
+    backgroundColor: '#F5FCFF'
+  },
+  scrollSpinner: {
+    marginVertical: 20,
+    backgroundColor: '#F5FCFF'
+  },
 });
 
