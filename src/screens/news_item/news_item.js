@@ -1,28 +1,29 @@
 import React, {
+  Platform,
   Text,
   View,
+  Image,
+  TouchableHighlight,
   ListView,
-  Navigator,
-  Component
+  Component,
+  PropTypes
 } from 'react-native';
 import {connect} from 'react-redux';
 import styles from './style';
 import CardFull from '_components/card_full';
 
 
-import { getArticleDetail, getArticleRelated } from '_actions/articles';
+import { getNewsById, getNewsRelated } from '_actions/news';
 
 import {
   getNewsShowcases,
-  getArticleDetailShowcase,
+  getNewsDetailShowcase,
   loadMoreShowcase
 } from '_actions/showcase';
 
-class ArticleItemScreen extends Component {
-
+class NewsItemScreen extends Component {
   constructor(props, context) {
     super(props, context);
-
   }
 
   componentDidMount() {
@@ -37,22 +38,24 @@ class ArticleItemScreen extends Component {
     let {dispatch, navigation_params} = this.props;
     const slug = navigation_params.to;
 
-    dispatch(getArticleDetail(slug))
-    dispatch(getArticleRelated(slug))
-    dispatch(getArticleDetailShowcase())
+    dispatch(getNewsById(id)).then(()=> {
+      console.log('getNewsById');
+    })
+    dispatch(getNewsDetailShowcase())
+    dispatch(getNewsRelated(id))
   }
 
   renderLoadingView() {
     return (
       <View style={styles.loader}>
-        <Text>load article...</Text>
+        <Text>load news...</Text>
       </View>
     )
   }
 
   render() {
-    let { articles, navigator } = this.props;
-    let { related, detail, loader } = articles;
+    let { news, navigator } = this.props;
+    let { related, detail, loader } = news;
 
     if (loader || !detail.item) {
       return this.renderLoadingView()
@@ -65,13 +68,14 @@ class ArticleItemScreen extends Component {
           {...detail.item}
           related={related}
           navigator={navigator}
-          contentType='articles'/>
+          contentType='news' />
       </View>
     );
   }
 }
 
 export default connect(state => ({
+  news: state.news,
   showcases: state.showcase,
-  articles: state.articles
-}))(ArticleItemScreen);
+}))(NewsItemScreen);
+

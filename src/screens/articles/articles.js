@@ -4,6 +4,7 @@ import React, {
   View,
   Image,
   TouchableHighlight,
+  LayoutAnimation,
   ListView,
   Component,
   PropTypes
@@ -37,6 +38,8 @@ class ArticlesScreen extends Component {
 
 
   componentWillMount() {
+    LayoutAnimation.spring();
+
     const { dispatch, navigation_params } = this.props;
     const rubric = navigation_params ? navigation_params.rubric : null;
 
@@ -47,6 +50,10 @@ class ArticlesScreen extends Component {
       dispatch(fetchArticles())
         .then(this.hideLoader.bind(this))
     }
+  }
+
+  componentDidMount(){
+
   }
 
   hideLoader() {
@@ -92,7 +99,7 @@ class ArticlesScreen extends Component {
      * @params showRubricTag
      */
     return (
-      <View style={styles.container}>
+      <View style={styles.container} ref="current_view">
         {articles.items.length ?
           <ScrollListView
             dataSource={dataSource.cloneWithRows(articles.items)}

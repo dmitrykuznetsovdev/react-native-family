@@ -4,6 +4,7 @@ import React, {
   Navigator,
   StyleSheet,
   TouchableOpacity,
+  Dimensions,
   View,
   Text,
   Image
@@ -11,16 +12,35 @@ import React, {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as device from '_utils/device';
+import IndexScreen from '_screens/index';
 import ArticlesScreen from '_screens/articles';
 import ArticleItemScreen from '_screens/article_item';
+import NewsScreen from '_screens/news';
+import NewsItemScreen from '_screens/news_item';
+import Menu from '_components/menu';
 import WebViewScreen from '_screens/web_view';
 import {SetNavigator} from '_components/link';
 
-const initialRoute = {
-  title: 'App Name Test',
-  type: 'tab',
-  id: 'articles'
+
+var SCREEN_WIDTH = Dimensions.get('window').width;
+var BaseConfig   = Navigator.SceneConfigs.FloatFromRight;
+
+
+const CustomLeftToRightGesture = {
+  ...BaseConfig.gestures.pop,
+  snapVelocity: 8,
+  edgeHitWidth: SCREEN_WIDTH
 }
+
+const CustomSceneConfig = {
+  ...BaseConfig,
+  springTension: 100,
+  springFriction: 1,
+  gestures: {
+    pop: CustomLeftToRightGesture
+  }
+}
+
 
 function renderScene(route, navigator) {
 
@@ -28,11 +48,20 @@ function renderScene(route, navigator) {
 
   let component;
   switch (route.id) {
+    case 'index_screen':
+      component = <IndexScreen navigator={navigator} {...route} />;
+      break;
     case 'articles':
       component = <ArticlesScreen navigator={navigator} {...route} />;
       break;
     case 'articles_item':
       component = <ArticleItemScreen navigator={navigator} {...route} />;
+      break;
+    case 'news':
+      component = <NewsScreen navigator={navigator} {...route} />;
+      break;
+    case 'news_item':
+      component = <NewsItemScreen navigator={navigator} {...route} />;
       break;
     case 'web_view':
       component = <WebViewScreen navigator={navigator} {...route} />;
@@ -43,7 +72,6 @@ function renderScene(route, navigator) {
   }
   return component;
 }
-
 function _navBarRouteMapper() {
   return {
     LeftButton: (route, navigator) => {
@@ -76,17 +104,44 @@ function _navBarRouteMapper() {
 /**
  *
  */
-export const Router = () => (
-  <Navigator
-    initialRoute={initialRoute}
-    renderScene={renderScene}
-    navigationBar={
-        <Navigator.NavigationBar routeMapper={_navBarRouteMapper()} />
-      }
-    style={styles.navigator}/>
-)
+class Router extends Component {
+
+  componentDidMount() {
+    const navigator = this.refs.nav;
+  }
+
+  render() {
+
+    const initialRoute = {
+      title: 'App Name Test',
+      type: 'tab',
+      id: 'articles'
+    }
+
+    return (
+      <View style={styles.root_view}>
+        <Menu />
+        <Navigator
+          ref="nav"
+          initialRoute={initialRoute}
+          renderScene={renderScene}
+          configureScene={(route, routeStack)=>CustomSceneConfig}
+          navigationBar={
+            <Navigator.NavigationBar routeMapper={_navBarRouteMapper()} />
+          }
+          style={styles.navigator}/>
+
+      </View>
+    )
+  }
+}
+
+export default Router;
 
 var styles = StyleSheet.create({
+  root_view: {
+    flex: 1
+  },
   navigator: {
     flex: 1,
     padding: 10,
