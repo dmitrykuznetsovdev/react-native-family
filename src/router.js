@@ -106,31 +106,74 @@ function _navBarRouteMapper() {
  */
 class Router extends Component {
 
-  componentDidMount() {
-    const navigator = this.refs.nav;
-  }
+  constructor(props) {
+    super(props)
+    this.state = {
+      x: 0
+    }
 
-  render() {
+    this.dragging = false;
+    this.drag     = {
+      x: 0
+    }
 
-    const initialRoute = {
+    this.initialRoute = {
       title: 'App Name Test',
       type: 'tab',
       id: 'articles'
     }
+  }
 
+  componentDidMount() {
+    const navigator = this.refs.nav;
+  }
+
+  _onResponderMove(evt) {
+    evt = evt.nativeEvent;
+    this.setState({
+      x: this.state.x + (evt.pageX - this.drag.x)
+    });
+
+    this.drag.x = evt.pageX;
+  }
+
+  resetPosition(evt) {
+    this.dragging = false;
+    this.setState({x: 0})
+  }
+
+  _onStartShouldSetResponder(evt) {
+    this.dragging = true;
+    this.drag     = {
+      x: evt.nativeEvent.pageX
+    }
+    return true;
+  }
+
+  getStyle() {
+    var transform = [{translateX: this.state.x}];
+    return {transform: transform};
+  }
+
+  render() {
+
+    console.log(this.getStyle());
     return (
       <View style={styles.root_view}>
         <Menu />
-        <Navigator
-          ref="nav"
-          initialRoute={initialRoute}
-          renderScene={renderScene}
-          configureScene={(route, routeStack)=>CustomSceneConfig}
-          navigationBar={
-            <Navigator.NavigationBar routeMapper={_navBarRouteMapper()} />
-          }
-          style={styles.navigator}/>
 
+        <View style={[styles.root_view_wrapper, this.getStyle()]}
+              onResponderMove={this._onResponderMove.bind(this)}
+              onStartShouldSetResponder={this._onStartShouldSetResponder.bind(this)}>
+
+          <Navigator
+            ref="nav"
+            initialRoute={this.initialRoute}
+            renderScene={renderScene}
+            configureScene={(route, routeStack)=>CustomSceneConfig}
+            navigationBar={<Navigator.NavigationBar routeMapper={_navBarRouteMapper()} />}
+            style={styles.navigator}/>
+        </View>
       </View>
     )
   }
@@ -141,6 +184,11 @@ export default Router;
 var styles = StyleSheet.create({
   root_view: {
     flex: 1
+  },
+  root_view_wrapper: {
+    flex: 1,
+    //position: 'relative',
+    //left: 100
   },
   navigator: {
     flex: 1,
