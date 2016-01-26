@@ -41,10 +41,8 @@ export const fetchArticlesRubric = (rubricId) => dispatch => {
     params: {page_size: 14}
   }
 
-  ArticleServices.getArticlesByRubric(params)
-    .then((data)=> {
-      dispatch(actionArticlesByRubric(data))
-    })
+  return ArticleServices.getArticlesByRubric(params)
+    .then((data)=> dispatch(actionArticlesByRubric(data)))
     .catch(failLoadContent)
 }
 
@@ -79,11 +77,11 @@ export const loadMoreArticles = (params) => dispatch => {
  */
 export const getArticleDetail = (slug) => dispatch => {
 
-  dispatch({type: ARTICLES_SHOW_LOADER, loader : true})
+  dispatch({type: ARTICLES_SHOW_LOADER, loader: true})
 
   return ArticleServices.getArticleId(slug)
     .then((data)=> {
-      setTimeout(()=> dispatch({type: ARTICLES_SHOW_LOADER, loader : false}) , 1000)
+      setTimeout(()=> dispatch({type: ARTICLES_SHOW_LOADER, loader: false}), 1000)
       return dispatch({type: GET_ARTICLE_DETAIL, data})
     })
     .catch(failLoadContent);

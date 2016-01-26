@@ -10,7 +10,7 @@ import React, {
 } from 'react-native';
 import {connect} from 'react-redux';
 import styles from './style';
-import Item from './item';
+import ShowcaseItems from '_components/showcase_items';
 import ScrollListView from '_components/scroll_list_view';
 
 
@@ -38,10 +38,11 @@ class ArticlesScreen extends Component {
 
   componentWillMount() {
     const { dispatch, navigation_params } = this.props;
-    if (navigation_params && navigation_params.rubric) {
-      dispatch(fetchArticlesRubric(navigation_params.rubric))
-        .then(this.hideLoader.bind(this))
-      dispatch(getRubricsBySlug('articles', id))
+    const rubric = navigation_params ? navigation_params.rubric : null;
+
+    if (rubric) {
+      dispatch(fetchArticlesRubric(rubric)).then(this.hideLoader.bind(this))
+      dispatch(getRubricsBySlug('articles', rubric))
     } else {
       dispatch(fetchArticles())
         .then(this.hideLoader.bind(this))
@@ -71,8 +72,9 @@ class ArticlesScreen extends Component {
   }
 
   render() {
-    const { articles } = this.props;
+    const { articles, navigation_params } = this.props;
     const { loader, isLoadingTail } = this.state;
+    const rubric = navigation_params ? navigation_params.rubric : null;
 
     if (loader) {
       return this.renderLoadingView()
@@ -83,12 +85,18 @@ class ArticlesScreen extends Component {
     })
 
 
+    /**
+     * находимся на списке статей
+     * так же можем находится на списке отдельной рубрики
+     * передаем тег рубрики на которой находимся в список ->
+     * @params showRubricTag
+     */
     return (
       <View style={styles.container}>
         {articles.items.length ?
           <ScrollListView
             dataSource={dataSource.cloneWithRows(articles.items)}
-            renderRow={(props) => <Item {...props} />}
+            renderRow={(props) => <ShowcaseItems {...props} showRubricTag={rubric} />}
             pageSize={14}
             isLoadingTail={isLoadingTail}
             onEndReached={this._onEndReached.bind(this)}

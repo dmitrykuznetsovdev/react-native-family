@@ -22,7 +22,7 @@ import Link from '_components/link';
 export const MainTag = (props) => {
   const {content_type, main_tag} = props;
   const contentType = (content_type === 'article') ? 'articles' : 'news';
-  const screen      = (content_type === 'article') ? 'articles_item' : 'articles_item';
+  const screen      = (content_type === 'article') ? 'articles_item' : 'news_item';
 
   return (main_tag ?
       <Link to={`/${contentType}/${main_tag.slug}`}

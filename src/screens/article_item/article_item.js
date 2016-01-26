@@ -2,6 +2,7 @@ import React, {
   Text,
   View,
   ListView,
+  Navigator,
   Component
 } from 'react-native';
 import {connect} from 'react-redux';
@@ -24,7 +25,11 @@ class ArticleItemScreen extends Component {
 
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    const {navigator} = this.props;
+    /*navigator.addListener('didfocus', ()=>{
+      console.log('navigator.addListener');
+    })*/
     this.fetchData()
   }
 
@@ -63,6 +68,7 @@ class ArticleItemScreen extends Component {
     if (loader || !detail.item) {
       return this.renderLoadingView()
     }
+
 
     return (
       <View style={styles.container}>

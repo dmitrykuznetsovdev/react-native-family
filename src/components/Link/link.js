@@ -18,18 +18,23 @@ let localNavigator = {
  * @constructor
  */
 const Link = (props) => {
-  function _onPress(screenId, to) {
+  const {screenId, to} = props;
+
+  function _onPress(evt) {
+    evt.stopPropagation();
+    //const nativeEvent = evt.nativeEvent;
 
     localNavigator.push({
       id : screenId,
       navigation_params : {
+        ...props,
         to
       }
     })
   }
 
   return (
-    <TouchableHighlight onPress={() => _onPress(props.screenId, props.to)}>
+    <TouchableHighlight onPress={(evt) => _onPress(evt)}>
       <View style={props.style}>
         {props.children}
       </View>
