@@ -30,6 +30,10 @@ export default StyleSheet.create({
     flex: 1
   },
 
+  card : {
+    flex: 1
+  },
+
   scrollView : {
     flex: 1,
     marginTop: device.size(39),
@@ -86,7 +90,7 @@ export default StyleSheet.create({
     fontSize : 10
   },
   inf : {
-
+    flex: 1
   },
   title : {
     fontSize : 15

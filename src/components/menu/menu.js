@@ -29,6 +29,12 @@ const menu_list = [
     screenId: 'news',
     title: 'Новости',
     name: 'Новости'
+  },
+  {
+    to: null,
+    screenId: 'search',
+    title: 'Поиск',
+    name: 'Поиск'
   }
 ]
 

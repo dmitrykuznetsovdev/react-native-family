@@ -21,22 +21,32 @@ import ArticlesScreen from '_screens/articles';
 import ArticleItemScreen from '_screens/article_item';
 import NewsScreen from '_screens/news';
 import NewsItemScreen from '_screens/news_item';
+import SearchScreen from '_screens/search';
 import Menu from '_components/menu';
 import WebViewScreen from '_screens/web_view';
 import {SetNavigator} from '_components/link';
 import styles from './styles/base';
+import Link from '_components/link';
 
 import { NAVIGATOR_CHANGE } from '_actions/actions';
 
 var SCREEN_WIDTH = Dimensions.get('window').width;
 var BaseConfig   = Navigator.SceneConfigs.FloatFromRight;
 
+/**
+ *
+ * @type {{snapVelocity: number, edgeHitWidth: *}}
+ */
 const CustomLeftToRightGesture = {
   ...BaseConfig.gestures.pop,
   snapVelocity: 8,
   edgeHitWidth: SCREEN_WIDTH
 }
 
+/**
+ *
+ * @type {{springTension: number, springFriction: number, gestures: {pop: {snapVelocity: number, edgeHitWidth: *}}}}
+ */
 const CustomSceneConfig = {
   ...BaseConfig,
   springTension: 100,
@@ -46,49 +56,66 @@ const CustomSceneConfig = {
   }
 }
 
+/**
+ *
+ * @param route
+ * @param navigator
+ * @returns {*}
+ */
 function renderScene(route, navigator) {
 
   SetNavigator(navigator);
 
-  let component;
+  const screenParams = {
+    navigator,
+    ...route
+  }
+
+  console.log(route.id);
+
   switch (route.id) {
     case 'index_screen':
-      component = <IndexScreen navigator={navigator} {...route} />;
+      return <IndexScreen {...screenParams} />
       break;
     case 'articles':
-      component = <ArticlesScreen navigator={navigator} {...route} />;
+      return <ArticlesScreen {...screenParams} />
       break;
     case 'articles_item':
-      component = <ArticleItemScreen navigator={navigator} {...route} />;
+      return <ArticleItemScreen {...screenParams} />
       break;
     case 'news':
-      component = <NewsScreen navigator={navigator} {...route} />;
+      return <NewsScreen {...screenParams} />
       break;
     case 'news_item':
-      component = <NewsItemScreen navigator={navigator} {...route} />;
+      return <NewsItemScreen {...screenParams} />
+      break;
+    case 'search':
+      return <SearchScreen {...screenParams} />
       break;
     case 'web_view':
-      component = <WebViewScreen navigator={navigator} {...route} />;
+      return <WebViewScreen {...screenParams} />
       break;
-    case 'settings':
-      component = '';
-      break;
+    default:
+      return <IndexScreen {...screenParams} />
   }
-  return component;
 }
 
+/**
+ *
+ * @returns {{LeftButton: LeftButton, Title: Title, RightButton: RightButton}}
+ * @private
+ */
 function _navBarRouteMapper() {
   return {
     LeftButton: (route, navigator) => {
-      return (
-        <TouchableOpacity style={styles.crumbIconPlaceholder} onPress={() => { navigator.pop(); }}>
-          <Icon name="arrow-left" style={styles.crumbIcon}/>
-        </TouchableOpacity>
+      return (route.id == 'index_screen' ? null :
+          <TouchableOpacity style={styles.crumbIconPlaceholder} onPress={() => { navigator.pop(); }}>
+            <Icon name="arrow-left" style={styles.crumbIcon}/>
+          </TouchableOpacity>
       )
     },
     Title: (route) => {
       const {navigation_params} = route;
-      console.log(navigation_params.title);
       return (
         <View style={styles.title}>
           <Text style={styles.title_blank}>&nbsp;</Text>
@@ -97,9 +124,11 @@ function _navBarRouteMapper() {
       );
     },
     RightButton: (route) => {
-      return (
+      return (route.id  == 'search' ? null :
         <TouchableOpacity style={styles.crumbIconPlaceholder}>
-          <Icon name="arrow-right" style={styles.crumbIcon}/>
+          <Link {...{to : '', screenId :"search", title: 'Поиск'}}>
+            <Icon name="search" style={styles.crumbIcon}/>
+          </Link>
         </TouchableOpacity>
       )
     }
@@ -135,9 +164,9 @@ class Router extends Component {
     this.initialRoute = {
       title: 'App Name Test',
       type: 'tab',
-      id: 'news',
+      id: 'search',
       navigation_params: {
-        title: 'App Name Test'
+        title: 'Поиск'
       }
     }
 
@@ -242,7 +271,7 @@ class Router extends Component {
     const { dispatch } = this.props;
     let routeId = route.id;
 
-    if(route.id) {
+    if (route.id) {
       if (route.id.indexOf('articles') != -1) {
         routeId = 'articles';
       } else if (route.id.indexOf('news') != -1) {
@@ -257,7 +286,7 @@ class Router extends Component {
 
     dispatch({type: NAVIGATOR_CHANGE, data: route})
 
-    if(this._isOpenMenu) {
+    if (this._isOpenMenu) {
       this.resetPosition();
     }
   }

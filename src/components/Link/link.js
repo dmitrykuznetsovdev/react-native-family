@@ -21,7 +21,6 @@ const Link = (props) => {
   const {screenId, to} = props;
 
   function _onPress(evt) {
-    console.log('_onPress');
     evt.stopPropagation();
     //const nativeEvent = evt.nativeEvent;
 
