@@ -16,7 +16,7 @@ let item_active = {
 export default StyleSheet.create({
   menu: {
     flex: 1,
-    flexDirection : 'row',
+    flexDirection : 'column',
     padding: 5,
     backgroundColor: '#000',
     position: 'absolute',
@@ -27,7 +27,7 @@ export default StyleSheet.create({
     opacity : 0.8
   },
   title: {
-    marginVertical: 20,
+    marginVertical: 20
   },
   item,
   item_active
