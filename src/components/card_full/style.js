@@ -31,7 +31,12 @@ export default StyleSheet.create({
   },
 
   card : {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'red',
+    height : 50,
+    flexDirection: 'row',
+    borderColor: '#E8E8E6',
+    borderWidth: 1
   },
 
   scrollView : {

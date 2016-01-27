@@ -13,15 +13,6 @@ import {
 } from '_actions/actions';
 
 
-function createFakeArray(count) {
-  return Array.apply(0, Array(count));
-}
-
-function changeUrl(searchQuery, activeTab) {
-}
-
-
-
 const search = (state = {
   tabs : {
     items : []
@@ -29,7 +20,6 @@ const search = (state = {
   query : {
     items : []
   },
-  fakeArray : [],
   predicates : [],
   searchQuery : '',
   activeTab : '',
@@ -47,11 +37,9 @@ const search = (state = {
         }
       }
     case SEARCH_GET_DATA_BY_QUERY:
-      changeUrl(action.query, action.tab);
       return {
         ...state,
         searchQuery : action.query || '',
-        fakeArray : createFakeArray(action.data.count),
         query : {
           ...state.query,
           ...action.data
@@ -70,7 +58,6 @@ const search = (state = {
       return {
         ...state,
         activeTab : action.tab,
-        fakeArray : createFakeArray(action.data.count),
         query : {
           ...state.query,
           ...action.data

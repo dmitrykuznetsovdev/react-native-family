@@ -4,8 +4,10 @@ import * as device from '_utils/device';
 export default StyleSheet.create({
   container : {
     flex: 1,
-    marginTop: device.size(65),
-    backgroundColor: '#FFF'
+    marginTop: device.size(65)
+  },
+  wrapper : {
+    flex: 1
   },
   search_line : {
     flex: 1,

@@ -35,9 +35,9 @@ const CardPreview = (props) => {
     }
   }
 
-
   return (
     <Link {...navigateTo} style={styles.card}>
+
       <View style={styles.inf}>
         {content_type == 'news' ? Filters.getDateLongFormat(pub_date) || "" : null}
         {content_type != 'news' ?

@@ -28,7 +28,7 @@ class SearchScreen extends Component {
     this.state = {
       loader: true,
       isLoadingTail: false,
-      dataSource : new ListView.DataSource({
+      dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       })
     };
@@ -38,7 +38,6 @@ class SearchScreen extends Component {
 
   componentWillMount() {
     const { dispatch } = this.props;
-    this.fetchData();
   }
 
   /**
@@ -68,7 +67,7 @@ class SearchScreen extends Component {
       const { dispatch } = this.props;
       const url         = params.url;
       const contentType = params.contentType;
-      this._loading = true;
+      this._loading     = true;
       dispatch(fetchContentByTypeTabs(url, contentType))
         .then(() => this._loading = false)
         .catch(()=> this._loading = false)
@@ -96,12 +95,20 @@ class SearchScreen extends Component {
   render() {
     const { search, navigation_params } = this.props;
 
-    console.log(search);
-
     return (
       <View style={styles.container}>
         <SearchLine />
-        <Text>Поиск</Text>
+        <View style={styles.wrapper}>
+          <ScrollListView
+            dataSource={this.state.dataSource.cloneWithRows(search.query.items)}
+            renderRow={(props) => <CardPreview {...props} />}
+            pageSize={14}
+            isLoadingTail={this.state.isLoadingTail}
+            onEndReached={this._onEndReached.bind(this)}
+            onEndReachedThreshold={20}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
       </View>
     );
   }

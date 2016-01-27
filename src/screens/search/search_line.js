@@ -14,16 +14,34 @@ import {connect} from 'react-redux';
 import styles from './style';
 import stylesBase from '_app/styles/base';
 
+import { SEARCH_RESET_PREDICATES } from '_actions/actions'
+import { fetchTabs, fetchSearchQuery } from '_actions/search';
+
 class SearchLine extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {};
+    this.state = {
+      text : ''
+    };
+    this._loading = false;
   }
 
   componentWillMount() {
     const { dispatch } = this.props;
 
+  }
+
+  _onSearch(){
+    const { dispatch, search } = this.props;
+    const {text} = this.state;
+    this._loading = true;
+    Promise.all([
+        dispatch(fetchTabs(text, '')),
+        dispatch(fetchSearchQuery('', text))
+      ])
+      .then(() => this._loading = false)
+      .catch(()=> this._loading = false)
   }
 
 
@@ -36,10 +54,11 @@ class SearchLine extends Component {
           style={{height: 40, borderColor: 'gray', borderWidth: 1, flex: 1}}
           placeholder="поищи какое нибудь говно"
           placeholderTextColor="gray"
+          onSubmitEditing={this._onSearch.bind(this)}
           onChangeText={(text) => this.setState({text})}
           value={this.state.text} />
 
-        <TouchableOpacity style={[styles.search_icon]}>
+        <TouchableOpacity style={[styles.search_icon]} onPress={this._onSearch.bind(this)}>
           <Icon name="search" style={stylesBase.crumbIcon}/>
         </TouchableOpacity>
       </View>
