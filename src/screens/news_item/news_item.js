@@ -36,7 +36,7 @@ class NewsItemScreen extends Component {
    */
   fetchData() {
     let {dispatch, navigation_params} = this.props;
-    const slug = navigation_params.to;
+    const id = navigation_params.id;
 
     dispatch(getNewsById(id)).then(()=> {
       console.log('getNewsById');
@@ -68,7 +68,7 @@ class NewsItemScreen extends Component {
           {...detail.item}
           related={related}
           navigator={navigator}
-          contentType='news' />
+          contentType='news'/>
       </View>
     );
   }

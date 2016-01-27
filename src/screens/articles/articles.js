@@ -32,7 +32,10 @@ class ArticlesScreen extends Component {
 
     this.state = {
       loader: true,
-      isLoadingTail: false
+      isLoadingTail: false,
+      dataSource : new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2
+      })
     };
   }
 
@@ -82,11 +85,6 @@ class ArticlesScreen extends Component {
       return this.renderLoadingView()
     }
 
-    let dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2
-    })
-
-
     /**
      * находимся на списке статей
      * так же можем находится на списке отдельной рубрики
@@ -97,7 +95,7 @@ class ArticlesScreen extends Component {
       <View style={styles.container}>
         {articles.items.length ?
           <ScrollListView
-            dataSource={dataSource.cloneWithRows(articles.items)}
+            dataSource={this.state.dataSource.cloneWithRows(articles.items)}
             renderRow={(props) => <ShowcaseItems {...props} showRubricTag={rubric} />}
             pageSize={14}
             isLoadingTail={isLoadingTail}

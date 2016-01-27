@@ -27,7 +27,10 @@ class NewsScreen extends Component {
 
     this.state = {
       loader: true,
-      isLoadingTail: false
+      isLoadingTail: false,
+      dataSource : new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2
+      })
     };
   }
 
@@ -83,20 +86,15 @@ class NewsScreen extends Component {
     const { loader, isLoadingTail } = this.state;
     const { news_list, title } = news;
 
-    if (loader) {
+    if (loader && !news_list.items.length) {
       return this.renderLoadingView()
     }
 
-    let dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2
-    })
-
-
     return (
       <View style={styles.container}>
-        {news.items.length ?
+        {news_list.items.length ?
           <ScrollListView
-            dataSource={dataSource.cloneWithRows(news.items)}
+            dataSource={this.state.dataSource.cloneWithRows(news_list.items)}
             renderRow={(props) => <ShowcaseItems {...props} />}
             pageSize={14}
             isLoadingTail={isLoadingTail}

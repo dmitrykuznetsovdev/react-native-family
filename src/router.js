@@ -12,6 +12,7 @@ import React, {
   Text,
   Image
 } from 'react-native';
+import {connect} from 'react-redux';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as device from '_utils/device';
@@ -23,11 +24,12 @@ import NewsItemScreen from '_screens/news_item';
 import Menu from '_components/menu';
 import WebViewScreen from '_screens/web_view';
 import {SetNavigator} from '_components/link';
-import _ from 'lodash';
+import styles from './styles/base';
+
+import { NAVIGATOR_CHANGE } from '_actions/actions';
 
 var SCREEN_WIDTH = Dimensions.get('window').width;
 var BaseConfig   = Navigator.SceneConfigs.FloatFromRight;
-
 
 const CustomLeftToRightGesture = {
   ...BaseConfig.gestures.pop,
@@ -43,7 +45,6 @@ const CustomSceneConfig = {
     pop: CustomLeftToRightGesture
   }
 }
-
 
 function renderScene(route, navigator) {
 
@@ -75,28 +76,30 @@ function renderScene(route, navigator) {
   }
   return component;
 }
+
 function _navBarRouteMapper() {
   return {
     LeftButton: (route, navigator) => {
       return (
         <TouchableOpacity style={styles.crumbIconPlaceholder} onPress={() => { navigator.pop(); }}>
-          <Text>Назад</Text>
-          {/*<Icon name="arrow-left" style={styles.crumbIcon}/>*/}
+          <Icon name="arrow-left" style={styles.crumbIcon}/>
         </TouchableOpacity>
       )
     },
     Title: (route) => {
+      const {navigation_params} = route;
+      console.log(navigation_params.title);
       return (
         <View style={styles.title}>
-          <Text style={styles.title_blank}>{route.title || 'TITLE'}</Text>
+          <Text style={styles.title_blank}>&nbsp;</Text>
+          <Text style={styles.title_item}>{navigation_params.title || 'TITLE'}</Text>
         </View>
       );
     },
     RightButton: (route) => {
       return (
         <TouchableOpacity style={styles.crumbIconPlaceholder}>
-          <Text>Вперед</Text>
-          {/*<Icon name="arrow-right" style={styles.crumbIcon}/>*/}
+          <Icon name="arrow-right" style={styles.crumbIcon}/>
         </TouchableOpacity>
       )
     }
@@ -111,6 +114,7 @@ class Router extends Component {
 
   constructor(props) {
     super(props)
+
     this.state = {
       x: 0,
       translateX: new Animated.Value(0),
@@ -131,7 +135,10 @@ class Router extends Component {
     this.initialRoute = {
       title: 'App Name Test',
       type: 'tab',
-      id: 'articles'
+      id: 'news',
+      navigation_params: {
+        title: 'App Name Test'
+      }
     }
 
     this._panResponder = PanResponder.create({
@@ -223,6 +230,38 @@ class Router extends Component {
     };
   }
 
+
+  /**
+   * Событие Navigator, после того как отрисуется view
+   * создаем событие NAVIGATOR_CHANGE для меню
+   *
+   * @param route
+   * @private
+   */
+  _onWillFocus(route) {
+    const { dispatch } = this.props;
+    let routeId = route.id;
+
+    if(route.id) {
+      if (route.id.indexOf('articles') != -1) {
+        routeId = 'articles';
+      } else if (route.id.indexOf('news') != -1) {
+        routeId = 'news';
+      }
+    }
+
+    route = {
+      ...route,
+      routeId
+    }
+
+    dispatch({type: NAVIGATOR_CHANGE, data: route})
+
+    if(this._isOpenMenu) {
+      this.resetPosition();
+    }
+  }
+
   render() {
     return (
       <View style={styles.root_view}
@@ -234,6 +273,8 @@ class Router extends Component {
           <Navigator
             ref="nav"
             initialRoute={this.initialRoute}
+            onDidFocus={(route)=>{}}
+            onWillFocus={this._onWillFocus.bind(this)}
             renderScene={renderScene}
             configureScene={(route, routeStack)=>CustomSceneConfig}
             navigationBar={<Navigator.NavigationBar routeMapper={_navBarRouteMapper()} />}
@@ -244,56 +285,7 @@ class Router extends Component {
   }
 }
 
-export default Router;
+export default connect()(Router);
 
-var styles = StyleSheet.create({
-  root_view: {
-    flex: 1
-  },
-  root_view_wrapper: {
-    flex: 1
-  },
-  navigator: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: '#ffffff'
-  },
-  title_blank: {
-    width: 2000,
-    fontSize: device.fontSize(18),
-    lineHeight: device.fontSize(32)
-  },
-  title_plain: {
-    fontSize: device.fontSize(18),
-    color: '#4c4b4d',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    lineHeight: device.fontSize(34)
-  },
-  title: {
-    backgroundColor: '#315efb',
-    height: device.size(45)
-  },
-  title_item: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: device.size(6),
-    fontSize: device.fontSize(18),
-    color: '#fff',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    lineHeight: device.fontSize(27)
-  },
-  crumbIconPlaceholder: {
-    flex: 1,
-    height: device.size(145),
-    paddingTop: device.size(10),
-    paddingRight: device.size(10),
-    paddingLeft: device.size(10)
-  },
-  crumbIcon: {
-    fontSize: device.fontSize(26),
-    color: '#FFF'
-  }
-})
+
+

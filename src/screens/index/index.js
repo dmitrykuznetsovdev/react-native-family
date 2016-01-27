@@ -30,7 +30,7 @@ class IndexScreen extends Component {
 
     return (
       <View style={styles.container}>
-
+        <Text style={styles.loader}>INDEX</Text>
       </View>
     );
   }

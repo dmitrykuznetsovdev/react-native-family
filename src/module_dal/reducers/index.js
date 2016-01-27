@@ -7,18 +7,18 @@ import application from './application_state';
 import looks from './looks';
 import showcase from './showcase';
 import tags from './tags';
-import checklist from './checklist';
 import menu from './menu';
 import header from './header';
 import sections from './sections';
 import search from './search';
 import overlay from './overlay';
+import navigator from './navigator';
 
 let reducers = combineReducers({
+  navigator,
   overlay,
   header,
   menu,
-  checklist,
   tags,
   articles,
   search,
