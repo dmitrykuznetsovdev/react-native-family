@@ -32,10 +32,15 @@ export default StyleSheet.create({
 
   card : {
     flex: 1,
-    flexDirection: 'row',
+    paddingTop: device.size(10),
+    paddingLeft: device.size(13),
+    paddingRight: device.size(13),
     borderColor: '#E8E8E6',
     borderWidth: 1,
     backgroundColor: '#fff'
+  },
+  marginBottomItem : {
+    marginBottom : 10
   },
 
   scrollView : {
@@ -77,7 +82,13 @@ export default StyleSheet.create({
     borderColor: 'black',
     resizeMode: 'cover'
   },
+  title : {
+    flex : 1,
+    fontSize : 15,
+    color: '#000'
+  },
   announce : {
+    flex : 1,
     marginTop : 20,
     marginBottom : 20
   },
@@ -96,10 +107,7 @@ export default StyleSheet.create({
   inf : {
     flex: 1
   },
-  title : {
-    fontSize : 15,
-    color: '#000'
-  },
+
   tags : {
     flex : 1,
     flexDirection: 'row',

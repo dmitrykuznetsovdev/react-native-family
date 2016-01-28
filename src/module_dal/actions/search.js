@@ -38,8 +38,6 @@ export const fetchSearchQuery = (tab, query) => dispatch => {
 
   return SearchServices.getContentByType(data_query.tab, data_query.query)
       .then((data)=> {
-        dispatch({type: SEARCH_LOADER, loader : false})
-
         return dispatch({
           type: SEARCH_GET_DATA_BY_QUERY,
           query : data_query.query,
@@ -57,7 +55,6 @@ export const fetchContentByTypeTabs = (url, tab) => dispatch => {
 
   return SearchServices.getSearchByUrl(url)
       .then((data)=> {
-        dispatch({type: SEARCH_LOADER, loader : false})
         return dispatch({type: SEARCH_GET_DATA_BY_TABS, data, tab})
       })
       .catch(failLoadContent.bind(this, dispatch))
@@ -70,7 +67,6 @@ export const fetchDataByPage = (tab, query, page) => dispatch => {
 
   return SearchServices.getSearchByPage(tab, query, page)
       .then((data)=> {
-        dispatch({type: SEARCH_LOADER, loader : false})
         return dispatch({type: SEARCH_GET_DATA_BY_PAGE, data})
       })
       .catch(failLoadContent.bind(this, dispatch))

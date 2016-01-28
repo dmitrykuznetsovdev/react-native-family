@@ -40,8 +40,8 @@ class ShowcaseItems extends Component {
     const tag    = (main_tag) ? main_tag.slug : 'notag';
 
     return {
-      to: slug,
-      screenId: screen,
+      to: screen,
+      slug,
       tag,
       type,
       id
@@ -53,8 +53,8 @@ class ShowcaseItems extends Component {
     const screen      = (content_type === 'article') ? 'articles' : 'news';
 
     const url = {
-      to: main_tag.slug,
-      screenId: screen,
+      to: screen,
+      slug : main_tag.slug,
       rubric : main_tag.slug
     }
 
@@ -125,8 +125,6 @@ class ShowcaseItems extends Component {
   }
 
   render() {
-    const {main_image, main_tag, title} = this.props;
-
     return (
       <View style={styles.marginBottomItem}>
         <Link {...this.createPathForLink()} style={styles.item}>

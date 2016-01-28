@@ -37,7 +37,6 @@ class NewsItemScreen extends Component {
   fetchData() {
     let {dispatch, navigation_params} = this.props;
     const id = navigation_params.id;
-
     dispatch(getNewsById(id)).then(()=> {
       console.log('getNewsById');
     })

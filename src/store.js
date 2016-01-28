@@ -12,14 +12,13 @@ const middlewares = [
   writeState,
   //crashReporter
 ];
-
 let finalCreateStore;
-if (NODE_ENV !== 'production') {
-  const { persistState } = require('redux-devtools');
 
+if (global.__DEV__) {
   const logger = require('redux-logger')({
     level: 'info',
     collapsed: true,
+    colors: false,
     stateTransformer: (state) => state
   });
 
@@ -27,8 +26,9 @@ if (NODE_ENV !== 'production') {
     applyMiddleware(...middlewares, logger)
   )(createStore);
 
-} else {
-  finalCreateStore = applyMiddleware(...middlewares)(createStore);
 }
+
+/*finalCreateStore = applyMiddleware(...middlewares)(createStore);*/
+
 
 export default finalCreateStore(reducers);

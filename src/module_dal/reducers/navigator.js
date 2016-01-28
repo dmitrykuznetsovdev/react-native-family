@@ -1,13 +1,13 @@
 import { NAVIGATOR_CHANGE } from '_actions/actions';
 
 const navigator = (state = {
-  data : {}
+  data: {}
 }, action) => {
   switch (action.type) {
     case NAVIGATOR_CHANGE:
       return {
         ...state,
-        data : {...action.data}
+        data: {...action.data}
       }
     default:
       return {...state}

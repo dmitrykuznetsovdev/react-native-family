@@ -40,6 +40,7 @@ const search = (state = {
       return {
         ...state,
         searchQuery : action.query || '',
+        loader : false,
         query : {
           ...state.query,
           ...action.data
@@ -49,6 +50,7 @@ const search = (state = {
       return {
         ...state,
         searchQuery : action.query || '',
+        loader : false,
         query : {
           ...state.query,
           ...action.data
@@ -58,6 +60,7 @@ const search = (state = {
       return {
         ...state,
         activeTab : action.tab,
+        loader : false,
         query : {
           ...state.query,
           ...action.data

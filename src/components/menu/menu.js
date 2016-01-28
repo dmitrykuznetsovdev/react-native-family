@@ -7,32 +7,29 @@ import React, {
 import {connect} from 'react-redux';
 import Link from '_components/link';
 import _ from 'lodash';
+import {EventManager} from '_app/event_manager';
 import styles from './style';
 
 import { NAVIGATOR_CHANGE } from '_actions/actions';
 
 const menu_list = [
   {
-    to: null,
-    screenId: 'index_screen',
+    to: 'index_screen',
     title: 'Главная',
     name: 'Главная'
   },
   {
-    to: null,
-    screenId: 'articles',
+    to: 'articles',
     title: 'Статьи',
     name: 'Статьи'
   },
   {
-    to: null,
-    screenId: 'news',
+    to: 'news',
     title: 'Новости',
     name: 'Новости'
   },
   {
-    to: null,
-    screenId: 'search',
+    to: 'search',
     title: 'Поиск',
     name: 'Поиск'
   }
@@ -49,7 +46,7 @@ const Menu = (props) => {
       <Text>{''}</Text>
 
       {menu_list.map((item, i)=> {
-        const styl = item.screenId == dataNavigator.routeId ?
+        const styl = item.to == dataNavigator.routeId ?
           styles.item_active :
           styles.item;
 

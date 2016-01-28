@@ -18,17 +18,17 @@ let localNavigator = {
  * @constructor
  */
 const Link = (props) => {
-  const {screenId, to} = props;
+  const {to} = props;
 
   function _onPress(evt) {
     evt.stopPropagation();
     //const nativeEvent = evt.nativeEvent;
 
     localNavigator.push({
-      id : screenId,
+      id : to,
       navigation_params : {
-        ...props,
-        to
+        to,
+        ...props
       }
     })
   }

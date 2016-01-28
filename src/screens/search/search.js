@@ -13,6 +13,7 @@ import styles from './style';
 import ScrollListView from '_components/scroll_list_view';
 import CardPreview from '_components/card_full/card_preview';
 import SearchLine from './search_line';
+import Tabs from './tabs';
 
 import {
   fetchTabs,
@@ -38,17 +39,6 @@ class SearchScreen extends Component {
 
   componentWillMount() {
     const { dispatch } = this.props;
-
-    Promise.all([
-        dispatch(fetchTabs('папа', '')),
-        dispatch(fetchSearchQuery('', 'папа'))
-      ])
-      .then(() => {
-        this._loading = false
-      })
-      .catch(()=> {
-        this._loading = false
-      })
   }
 
   /**
@@ -79,36 +69,103 @@ class SearchScreen extends Component {
     //dispatch(fetchDataByPage(activeTab, searchQuery, page))
   }
 
+  /**
+   * прелоадер
+   * @returns {XML}
+   */
   renderLoadingView() {
     return (
       <View style={styles.loader}>
-        <Text>search loading...</Text>
+        <Text style={styles.loader_text}>search loading...</Text>
       </View>
     )
   }
 
-  render() {
-    const { search, navigation_params } = this.props;
+  /**
+   * пустой результат
+   * @returns {XML}
+   */
+  emptyResult() {
+    return (
+      <View style={styles.empty}>
+        <Text >По вашему запросу не чего не найдено</Text>
+      </View>
+    )
+  }
 
-    console.log(search.query.items);
+  /**
+   * прелоадер или рустой результат
+   * @returns {*}
+   */
+  loaderOrEmptyResult() {
+    const { searchQuery, query, loader } = this.props.search;
+    let templ = loader ? this.renderLoadingView() : null;
+
+    if (!query.items.length && !loader) {
+      if (searchQuery.length) {
+        templ = this.emptyResult()
+      }
+    }
+    return templ;
+  }
+
+  _onTabClick(url) {
+    const {search} = this.props;
+    if (url.contentType != search.activeTab) {
+      this.fetchContentByTypeTabs(url);
+    }
+  }
+
+
+  /**
+   * данные по типу контента
+   * { все результаты, новости, статьи }
+   *
+   * @param params
+   */
+  fetchContentByTypeTabs(params) {
+    if (!this._loading) {
+      const { dispatch } = this.props;
+      const url         = params.url;
+      const contentType = params.contentType;
+      this._loading     = true;
+      dispatch(fetchContentByTypeTabs(url, contentType))
+        .then(()=> {
+          this._loading = false;
+        })
+        .catch(()=> {
+          this._loading = false;
+        })
+    }
+  }
+
+
+  render() {
+    const { query, tabs, activeTab } = this.props.search;
 
     return (
       <View style={styles.container}>
         <View style={styles.flex}>
           <SearchLine  />
+          {!tabs.items.length ? null :
+            <Tabs tabs={tabs.items}
+                  activeTab={activeTab}
+                  onTabClick={this._onTabClick.bind(this)}/>
+          }
         </View>
-        <View style={styles.wrapper}>
-          {!search.query.items.length ? null :
-            <ScrollListView
-              dataSource={this.state.dataSource.cloneWithRows(search.query.items)}
-              renderRow={(props) => <CardPreview {...props} />}
-              pageSize={10}
-              isLoadingTail={this.state.isLoadingTail}
-              onEndReached={this._onEndReached.bind(this)}
-              onEndReachedThreshold={20}
-              showsVerticalScrollIndicator={false}
-            />}
-        </View>
+
+        {!query.items.length ? null :
+          <ScrollListView
+            dataSource={this.state.dataSource.cloneWithRows(query.items)}
+            renderRow={(props) => <CardPreview {...props} />}
+            pageSize={15}
+            isLoadingTail={this.state.isLoadingTail}
+            onEndReached={this._onEndReached.bind(this)}
+            onEndReachedThreshold={20}
+            showsVerticalScrollIndicator={false}
+          />}
+
+        {this.loaderOrEmptyResult()}
       </View>
     );
   }

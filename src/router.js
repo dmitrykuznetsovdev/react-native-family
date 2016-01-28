@@ -71,8 +71,6 @@ function renderScene(route, navigator) {
     ...route
   }
 
-  console.log(route.id);
-
   switch (route.id) {
     case 'index_screen':
       return <IndexScreen {...screenParams} />
@@ -124,9 +122,10 @@ function _navBarRouteMapper() {
       );
     },
     RightButton: (route) => {
+      const nav = {to : "search", title: 'Поиск'};
       return (route.id  == 'search' ? null :
         <TouchableOpacity style={styles.crumbIconPlaceholder}>
-          <Link {...{to : '', screenId :"search", title: 'Поиск'}}>
+          <Link {...nav} >
             <Icon name="search" style={styles.crumbIcon}/>
           </Link>
         </TouchableOpacity>

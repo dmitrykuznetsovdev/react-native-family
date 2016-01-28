@@ -45,7 +45,8 @@ const articles = (state = {
 		case GET_ARTICLE_DETAIL:
 			return {
 				...state,
-				detail : action.data
+				detail : action.data,
+        loader: false
 			}
 		case GET_ARTICLE_DETAIL_RELATED:
 			return {

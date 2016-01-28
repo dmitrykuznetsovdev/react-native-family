@@ -23,10 +23,15 @@ export const MainTag = (props) => {
   const {content_type, main_tag} = props;
   const contentType = (content_type === 'article') ? 'articles' : 'news';
   const screen      = (content_type === 'article') ? 'articles_item' : 'news_item';
+  const nav         = {
+    to: screen,
+    slug : main_tag ? main_tag.slug : '',
+    title : main_tag.title,
+    contentType
+  }
 
   return (main_tag ?
-      <Link to={`/${contentType}/${main_tag.slug}`}
-            screenId={screen}>
+      <Link {...nav}>
         <Text style={styles.main_tag}>{main_tag.title}</Text>
       </Link> : null
   )
@@ -85,14 +90,18 @@ export const Tags = (props) => {
 
   const {tags, content_type} = props;
   const contentType = (content_type === 'article') ? 'articles' : 'news';
+  const screen      = (content_type === 'article') ? 'articles_item' : 'news_item';
 
   return (
     <View style={styles.tags}>
       <Text>{(tags.length > 0) ? 'Темы: ' : ''}</Text>
 
       {tags.map((item, i)=> {
+        const nav = {
+          to: screen, contentType, slug: item.slug
+        }
         return (
-          <Link to={`/${contentType}/${item.slug}`} style={styles.tag_txt} key={i}>
+          <Link {...nav} style={styles.tag_txt} key={i}>
             <Text>{item.title} { (i !== tags.length - 1) ? ',' : '' }</Text>
           </Link>
         )
@@ -112,31 +121,43 @@ export const Matherials = (props) => {
   const {content_type, related} = props;
   const contentType = (content_type === 'article') ? 'articles' : 'news';
 
-  /**
-   *
-   * @param type
-   * @param slug
-   * @param id
-   * @param rubricSlug
-   * @returns {*}
-   */
-  function createUrl(type, slug, id, rubricSlug) {
-    let url;
-    switch (type) {
-      case 'articles':
-        url = `/${type}/${rubricSlug}/${slug}-${id}`;
-        break;
-      case 'news':
-        url = `/${type}/${rubricSlug}/${id}`;
-        break;
-    }
-    return url;
-  }
-
   if (!related.item || !related.item.materials.length) {
     return <Text></Text>
   }
 
+  /**
+   *
+   * @param item
+   * @returns {{url: {to: string, contentType: *, slug: string, id: string, tagSlug: *}, tagTitle: *, contentTitle: string}}
+   */
+  function prepareData(item) {
+    const contentType  = (item.content.content_type === 'article') ? 'articles' : item.content.content_type;
+    const contentSlug  = (item.content) ? item.content.slug : '';
+    const screen       = (contentType === 'articles') ? 'articles_item' : 'news_item';
+    const contentTitle = (item.content) ? item.content.title : '';
+    const contentId    = (item.content) ? item.content.id : '';
+    let tagSlug;
+    let tagTitle;
+
+    if (content_type === 'article') {
+      tagSlug  = (item.tag) ? item.tag.slug : 'notag';
+      tagTitle = (item.tag) ? item.tag.title : ''
+    } else {
+      tagSlug  = (item.content) ? item.content.main_tag.slug : '';
+      tagTitle = (item.content) ? item.content.main_tag.title : '';
+    }
+    const url = {
+      to: screen,
+      contentType,
+      slug: contentSlug,
+      id: contentId,
+      tagSlug
+    }
+
+    return {
+      url, tagTitle, contentTitle
+    }
+  }
 
   return (
     <View style={styles.materials}>
@@ -144,28 +165,13 @@ export const Matherials = (props) => {
         {contentType === 'articles' ? 'Интересное по теме:' : 'Читайте также'}
       </Text>
       {related.item.materials.map((item, i)=> {
-        var contentType  = (item.content.content_type === 'article') ? 'articles' : item.content.content_type;
-        var contentSlug  = (item.content) ? item.content.slug : '',
-            contentTitle = (item.content) ? item.content.title : '',
-            contentId    = (item.content) ? item.content.id : '',
-            tagSlug, tagTitle;
-
-        if (content_type === 'article') {
-          tagSlug  = (item.tag) ? item.tag.slug : 'notag';
-          tagTitle = (item.tag) ? item.tag.title : ''
-        } else {
-          tagSlug  = (item.content) ? item.content.main_tag.slug : '';
-          tagTitle = (item.content) ? item.content.main_tag.title : '';
-        }
-
-        var url = createUrl(contentType, contentSlug, contentId, tagSlug);
-
+        const {url, tagTitle, contentTitle} = prepareData(item);
         return (
           <View style={styles.materials_item} key={i}>
-            <Link to={`/${contentType}/${tagSlug}`}>
+            <Link {...url}>
               <Text style={styles.materials_item_tag}>{tagTitle}</Text>
             </Link>
-            <Link to={url}>
+            <Link {...url}>
               <Text style={styles.materials_item_title}>{contentTitle}</Text>
             </Link>
           </View>

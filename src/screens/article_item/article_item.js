@@ -35,8 +35,7 @@ class ArticleItemScreen extends Component {
    */
   fetchData() {
     let {dispatch, navigation_params} = this.props;
-    const slug = navigation_params.to;
-
+    const slug = navigation_params.slug;
     dispatch(getArticleDetail(slug))
     dispatch(getArticleRelated(slug))
     dispatch(getArticleDetailShowcase())

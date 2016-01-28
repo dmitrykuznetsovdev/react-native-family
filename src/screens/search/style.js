@@ -1,44 +1,84 @@
 const { StyleSheet } = React;
 import * as device from '_utils/device';
 
-const flex = 1;
+const flex   = 1;
+const center = {
+  flex,
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center'
+}
 
 export default StyleSheet.create({
-  flex : {
-    marginBottom: 20
+  flex: {
+    marginBottom: 10
   },
-  container : {
+  container: {
     flex,
     marginTop: device.size(65)
   },
-  wrapper : {
-    flex : 1,
-    backgroundColor: 'red',
-    minHeight: 300
+  wrapper: {
+    flex
   },
-  search_line : {
+  search_line: {
     flexDirection: 'row'
   },
-  input : {
+  input: {
+    flex,
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    paddingLeft: 4,
-    flex,
+    paddingLeft: 4
   },
-  search_icon : {
+  search_icon: {
     paddingTop: device.size(7),
     paddingRight: device.size(10),
     paddingLeft: device.size(10)
   },
   loader: {
-    flex,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
+    ...center,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0
+  },
+  loader_text : {
+    borderColor: 'gray',
+    borderWidth: 1,
+    padding : 10,
+    backgroundColor : '#999',
+    color : '#fff'
+  },
+  empty: {
+    ...center
   },
   marginBottomItem: {
     marginBottom: 10
+  },
+  tabs: {
+    flex,
+    flexDirection: 'row',
+    marginTop: device.size(15)
+  },
+  tabText: {
+    fontSize: 12,
+    color: '#000'
+  },
+  tabTextCount: {
+    fontSize: 9,
+    color: '#000'
+  },
+  tabContent: {
+    flex,
+    flexDirection: 'row',
+    paddingTop: device.size(7),
+    paddingRight: device.size(10),
+    paddingLeft: device.size(10),
+    borderColor: 'gray',
+    borderWidth: 1,
+    justifyContent: 'center',
+    height: 30
   }
 });
 

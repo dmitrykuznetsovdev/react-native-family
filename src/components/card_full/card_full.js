@@ -71,7 +71,8 @@ class CardFull extends Component {
       url: url,
       content_type,
       rubric,
-      to: slug
+      slug,
+      to: navigator_screen
     }
 
     navigator.push({

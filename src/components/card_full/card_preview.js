@@ -13,48 +13,55 @@ import styles, {htmlViewStyle} from './style';
 
 const CardPreview = (props) => {
 
-  const {content_type, main_tag, title, slug, id, pub_date} = props;
-  let contentType  = (content_type === 'article') ? 'articles' : content_type;
-  let mainTagSlug  = (main_tag) ? main_tag.slug : 'notag';
-  let mainTagTitle = (main_tag) ? main_tag.title : '';
-  let announce     = props.announce || '';
+  const {content_type, main_tag, title, slug, id} = props;
+  const contentType  = (content_type === 'article') ? 'articles' : content_type;
+  const screen = (content_type === 'article') ? 'articles_item': 'news_item';
+  const mainTagSlug  = (main_tag) ? main_tag.slug : 'notag';
+  const mainTagTitle = (main_tag) ? main_tag.title : '';
+  const announce     = props.announce || '';
+  const pub_date = Filters.getDateLongFormat(props.pub_date)
 
   const navigateTo = {
-    to: contentType,
+    to: screen,
+    screenId : screen,
     mainTagSlug,
     slug,
     id
   };
 
   function onRedirectInRubric() {
-    var contentType = (content_type === 'article') ? 'articles' : content_type;
     return {
-      to: contentType,
+      to: screen,
+      screenId : screen,
       contentType,
       rubric: mainTagSlug
     }
   }
-
-  console.log(title);
 
   return (
     <View style={styles.marginBottomItem}>
 
       <Link {...navigateTo} style={styles.card}>
         <View style={styles.inf}>
-          {content_type == 'news' ? Filters.getDateLongFormat(pub_date) || "" : null}
-          {content_type != 'news' ?
+
+          {content_type != 'news' ? null :
+            <Text style={styles.main_tag}>{pub_date}</Text>}
+
+          {content_type == 'news' ? null :
             <Link {...onRedirectInRubric}>
               <Text style={styles.main_tag}> { mainTagTitle || '' } </Text>
-            </Link> : null}
+            </Link>}
         </View>
+
         <Text style={styles.title}>{title}</Text>
-        {announce.length ?
+
+        {!announce.length ? null :
           <View style={styles.announce}>
             <HTMLView
               value={announce}
               stylesheet={htmlViewStyle}/>
-          </View> : null}
+          </View>}
+
       </Link>
     </View>
   )

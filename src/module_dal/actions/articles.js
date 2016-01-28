@@ -81,7 +81,6 @@ export const getArticleDetail = (slug) => dispatch => {
 
   return ArticleServices.getArticleId(slug)
     .then((data)=> {
-      setTimeout(()=> dispatch({type: ARTICLES_SHOW_LOADER, loader: false}), 1000)
       return dispatch({type: GET_ARTICLE_DETAIL, data})
     })
     .catch(failLoadContent);
