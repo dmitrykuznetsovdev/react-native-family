@@ -33,7 +33,7 @@ class ArticlesScreen extends Component {
     this.state = {
       loader: true,
       isLoadingTail: false,
-      dataSource : new ListView.DataSource({
+      dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       })
     };
@@ -75,7 +75,6 @@ class ArticlesScreen extends Component {
     }
   }
 
-
   render() {
     const { articles, navigation_params } = this.props;
     const { loader, isLoadingTail } = this.state;
@@ -93,7 +92,7 @@ class ArticlesScreen extends Component {
      */
     return (
       <View style={styles.container}>
-        {articles.items.length ?
+        {!articles.items.length ? null :
           <ScrollListView
             dataSource={this.state.dataSource.cloneWithRows(articles.items)}
             renderRow={(props) => <ShowcaseItems {...props} showRubricTag={rubric} />}
@@ -102,8 +101,7 @@ class ArticlesScreen extends Component {
             onEndReached={this._onEndReached.bind(this)}
             onEndReachedThreshold={20}
             showsVerticalScrollIndicator={false}
-          />
-          : null}
+          />}
       </View>
     );
   }

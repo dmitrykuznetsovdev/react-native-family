@@ -21,27 +21,42 @@ class SearchLine extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      text : ''
+    this.state    = {
+      text: '',
+      saveText: ''
     };
     this._loading = false;
   }
 
   componentWillMount() {
     const { dispatch } = this.props;
-
   }
 
-  _onSearch(){
+  _onSearch() {
+
     const { dispatch, search } = this.props;
-    const {text} = this.state;
+    const {text, saveText} = this.state;
     this._loading = true;
-    Promise.all([
-        dispatch(fetchTabs(text, '')),
-        dispatch(fetchSearchQuery('', text))
-      ])
-      .then(() => this._loading = false)
-      .catch(()=> this._loading = false)
+
+    if (text && text.length && text !== saveText) {
+      this.state = {
+        ...this.state,
+        saveText: text
+      }
+
+      const searchText = encodeURIComponent(text);
+
+      Promise.all([
+          dispatch(fetchTabs(searchText, '')),
+          dispatch(fetchSearchQuery('', searchText))
+        ])
+        .then(() => {
+          this._loading = false
+        })
+        .catch(()=> {
+          this._loading = false
+        })
+    }
   }
 
 
@@ -51,12 +66,13 @@ class SearchLine extends Component {
     return (
       <View style={styles.search_line}>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1, flex: 1}}
+          style={styles.input}
+          ref={(c) => this._input = c}
           placeholder="поищи какое нибудь говно"
           placeholderTextColor="gray"
           onSubmitEditing={this._onSearch.bind(this)}
           onChangeText={(text) => this.setState({text})}
-          value={this.state.text} />
+          value={this.state.text}/>
 
         <TouchableOpacity style={[styles.search_icon]} onPress={this._onSearch.bind(this)}>
           <Icon name="search" style={stylesBase.crumbIcon}/>

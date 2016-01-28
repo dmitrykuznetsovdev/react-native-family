@@ -1,18 +1,12 @@
 {
   "name": "App",
-  "version": "1.17.0",
-  "description": "A future-facing starter kit for React Native apps.",
-  "author": "Josh Habdas <jhabdas@gmail.com> (http://habd.as)",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "android-setup-port": "adb reverse tcp:8081 tcp:8080",
     "build": "NODE_ENV=production TYPE_ENV=production rnws bundle",
     "test": "eslint src",
     "start": "NODE_ENV=development TYPE_ENV=development rnws start --resetCache --port 6000"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jhabdas/react-native-webpack-starter-kit"
   },
   "engines": {
     "node": ">=4",
@@ -43,10 +37,11 @@
     "eslint-loader": "^1.1.1",
     "eslint-plugin-react": "^3.11.2",
     "lodash": "^4.0.0",
-    "manifest-revision-webpack-plugin": "0.0.5",
     "react-native-webpack-server": "^0.8.4",
     "redux-devtools": "^3.0.1",
-    "redux-logger": "^2.3.2",
+    "redux-devtools-dock-monitor": "^1.0.1",
+    "redux-devtools-log-monitor": "^1.0.2",
+    "redux-logger": "^2.4.0",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   }

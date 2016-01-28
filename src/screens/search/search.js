@@ -38,22 +38,17 @@ class SearchScreen extends Component {
 
   componentWillMount() {
     const { dispatch } = this.props;
-  }
 
-  /**
-   * получаем данные по query параметрам
-   * и стисок табов { все результаты, новости, статьи }
-   */
-  fetchData() {
-    const { dispatch, search } = this.props;
-    const {searchQuery, activeTab} = search;
-    this._loading = true;
     Promise.all([
-        dispatch(fetchTabs(searchQuery, activeTab)),
-        dispatch(fetchSearchQuery(activeTab, searchQuery))
+        dispatch(fetchTabs('папа', '')),
+        dispatch(fetchSearchQuery('', 'папа'))
       ])
-      .then(() => this._loading = false)
-      .catch(()=> this._loading = false)
+      .then(() => {
+        this._loading = false
+      })
+      .catch(()=> {
+        this._loading = false
+      })
   }
 
   /**
@@ -95,19 +90,24 @@ class SearchScreen extends Component {
   render() {
     const { search, navigation_params } = this.props;
 
+    console.log(search.query.items);
+
     return (
       <View style={styles.container}>
-        <SearchLine />
+        <View style={styles.flex}>
+          <SearchLine  />
+        </View>
         <View style={styles.wrapper}>
-          <ScrollListView
-            dataSource={this.state.dataSource.cloneWithRows(search.query.items)}
-            renderRow={(props) => <CardPreview {...props} />}
-            pageSize={14}
-            isLoadingTail={this.state.isLoadingTail}
-            onEndReached={this._onEndReached.bind(this)}
-            onEndReachedThreshold={20}
-            showsVerticalScrollIndicator={false}
-          />
+          {!search.query.items.length ? null :
+            <ScrollListView
+              dataSource={this.state.dataSource.cloneWithRows(search.query.items)}
+              renderRow={(props) => <CardPreview {...props} />}
+              pageSize={10}
+              isLoadingTail={this.state.isLoadingTail}
+              onEndReached={this._onEndReached.bind(this)}
+              onEndReachedThreshold={20}
+              showsVerticalScrollIndicator={false}
+            />}
         </View>
       </View>
     );

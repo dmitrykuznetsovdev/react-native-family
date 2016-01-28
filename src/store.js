@@ -6,7 +6,6 @@ import reducers from '_reducers/index'
 import { writeState } from '_middleware/storage';
 import { crashReporter } from '_middleware/crash_reporter';
 
-
 const middlewares = [
   thunkMiddleware,
   promiseMiddleware,
@@ -14,5 +13,22 @@ const middlewares = [
   //crashReporter
 ];
 
-let finalCreateStore = applyMiddleware(...middlewares)(createStore);
+let finalCreateStore;
+if (NODE_ENV !== 'production') {
+  const { persistState } = require('redux-devtools');
+
+  const logger = require('redux-logger')({
+    level: 'info',
+    collapsed: true,
+    stateTransformer: (state) => state
+  });
+
+  finalCreateStore = compose(
+    applyMiddleware(...middlewares, logger)
+  )(createStore);
+
+} else {
+  finalCreateStore = applyMiddleware(...middlewares)(createStore);
+}
+
 export default finalCreateStore(reducers);

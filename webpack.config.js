@@ -2,7 +2,6 @@
 
 var path         = require('path');
 var webpack      = require('webpack');
-var Manifest     = require('manifest-revision-webpack-plugin');
 var _            = require('lodash');
 
 
@@ -77,7 +76,12 @@ var baseConfig = {
         }
       }
     ]
-  }
+  },
+  plugins : [
+    new webpack.DefinePlugin({
+      'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    })
+  ]
 };
 
 /**

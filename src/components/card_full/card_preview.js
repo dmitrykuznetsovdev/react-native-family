@@ -35,25 +35,28 @@ const CardPreview = (props) => {
     }
   }
 
+  console.log(title);
+
   return (
-    <Link {...navigateTo} style={styles.card}>
+    <View style={styles.marginBottomItem}>
 
-      <View style={styles.inf}>
-        {content_type == 'news' ? Filters.getDateLongFormat(pub_date) || "" : null}
-        {content_type != 'news' ?
-          <Link {...onRedirectInRubric}>
-            <Text style={styles.main_tag}> { mainTagTitle || '' } </Text>
-          </Link> : null}
-      </View>
-
-      <Text style={styles.title}>{title}</Text>
-      {announce.length ?
-        <View style={styles.announce}>
-          <HTMLView
-            value={announce}
-            stylesheet={htmlViewStyle}/>
-        </View> : null}
-    </Link>
+      <Link {...navigateTo} style={styles.card}>
+        <View style={styles.inf}>
+          {content_type == 'news' ? Filters.getDateLongFormat(pub_date) || "" : null}
+          {content_type != 'news' ?
+            <Link {...onRedirectInRubric}>
+              <Text style={styles.main_tag}> { mainTagTitle || '' } </Text>
+            </Link> : null}
+        </View>
+        <Text style={styles.title}>{title}</Text>
+        {announce.length ?
+          <View style={styles.announce}>
+            <HTMLView
+              value={announce}
+              stylesheet={htmlViewStyle}/>
+          </View> : null}
+      </Link>
+    </View>
   )
 }
 

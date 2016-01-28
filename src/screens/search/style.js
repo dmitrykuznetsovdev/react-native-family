@@ -1,29 +1,38 @@
 const { StyleSheet } = React;
 import * as device from '_utils/device';
 
+const flex = 1;
+
 export default StyleSheet.create({
+  flex : {
+    marginBottom: 20
+  },
   container : {
-    flex: 1,
+    flex,
     marginTop: device.size(65)
   },
   wrapper : {
-    flex: 1
+    flex : 1,
+    backgroundColor: 'red',
+    minHeight: 300
   },
   search_line : {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent : 'flex-start',
-    flexWrap : 'nowrap'
+    flexDirection: 'row'
+  },
+  input : {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingLeft: 4,
+    flex,
   },
   search_icon : {
-    height: device.size(145),
     paddingTop: device.size(7),
     paddingRight: device.size(10),
-    paddingLeft: device.size(10),
-    alignItems : 'flex-end'
+    paddingLeft: device.size(10)
   },
   loader: {
-    flex: 1,
+    flex,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
