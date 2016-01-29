@@ -17,20 +17,20 @@ import {connect} from 'react-redux';
 import store from './store';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import * as device from '_utils/device';
-import IndexScreen from '_screens/index';
-import ArticlesScreen from '_screens/articles';
-import ArticleItemScreen from '_screens/article_item';
-import NewsScreen from '_screens/news';
-import NewsItemScreen from '_screens/news_item';
-import SearchScreen from '_screens/search';
-import Menu from '_components/menu';
-import WebViewScreen from '_screens/web_view';
-import {SetNavigator} from '_components/link';
-import styles, {StatusBarStyle} from './styles/base';
-import Link from '_components/link';
+import * as device from './utils/device';
+import IndexScreen from './screens/index';
+import ArticlesScreen from './screens/articles';
+import ArticleItemScreen from './screens/article_item';
+import NewsScreen from './screens/news';
+import NewsItemScreen from './screens/news_item';
+import SearchScreen from './screens/search';
+import Menu from './components/menu';
+import WebViewScreen from './screens/web_view';
+import {SetNavigator} from './components/link';
+import styles from './styles/base';
+import Link from './components/link';
 
-import { NAVIGATOR_CHANGE } from '_actions/actions';
+import { NAVIGATOR_CHANGE } from './module_dal/actions/actions';
 
 const SCREEN_WIDTH  = Dimensions.get('window').width;
 const BaseConfig    = Navigator.SceneConfigs.FloatFromRight;

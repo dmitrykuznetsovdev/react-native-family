@@ -11,9 +11,9 @@ import React, {
   PropTypes
 } from 'react-native';
 import {connect} from 'react-redux';
-import Link from '_components/link';
-import Filters from '_utils/filters';
-import {imageTemplateCrop} from '_utils/utils';
+import Link from '/src/components/link';
+import Filters from '/src/utils/filters';
+import {imageTemplateCrop} from '/src/utils/utils';
 
 import styles from './style';
 

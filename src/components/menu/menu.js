@@ -5,12 +5,12 @@ import React, {
   Component
 } from 'react-native';
 import {connect} from 'react-redux';
-import Link from '_components/link';
+import Link from '/src/components/link';
 import _ from 'lodash';
-import {EventManager} from '_app/event_manager';
+import {EventManager} from '/src/event_manager';
 import styles from './style';
 
-import { NAVIGATOR_CHANGE } from '_actions/actions';
+import { NAVIGATOR_CHANGE } from '/src/module_dal/actions/actions';
 
 const menu_list = [
   {

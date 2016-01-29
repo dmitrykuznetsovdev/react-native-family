@@ -2,9 +2,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
 
-import reducers from '_reducers/index'
-import { writeState } from '_middleware/storage';
-import { crashReporter } from '_middleware/crash_reporter';
+import reducers from '/src/module_dal/reducers/index'
+import { writeState } from '/src/module_dal/middleware/storage';
+import { crashReporter } from '/src/module_dal/middleware/crash_reporter';
 
 const middlewares = applyMiddleware([
   thunkMiddleware,

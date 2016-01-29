@@ -11,19 +11,19 @@ import React, {
 } from 'react-native';
 import {connect} from 'react-redux';
 import styles from './style';
-import ShowcaseItems from '_components/showcase_items';
-import ScrollListView from '_components/scroll_list_view';
+import ShowcaseItems from '/src/components/showcase_items';
+import ScrollListView from '/src/components/scroll_list_view';
 
 
 import {
   fetchArticles,
   fetchArticlesRubric,
   loadMoreArticles
-} from '_actions/articles';
+} from '/src/module_dal/actions/articles';
 
 import {
   getRubricsBySlug
-} from '_actions/common';
+} from '/src/module_dal/actions/common';
 
 class ArticlesScreen extends Component {
 

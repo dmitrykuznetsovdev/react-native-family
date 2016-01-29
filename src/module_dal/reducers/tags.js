@@ -1,4 +1,4 @@
-import {SET_TAG_BY_SLUG} from '_actions/actions';
+import {SET_TAG_BY_SLUG} from '../actions/actions';
 
 const tags = (state = {
   articles : {

@@ -8,7 +8,7 @@ import {
     HEADER_SUBMENU_SET_TYPE,
     MENU_TOGGLE_ACTIVE,
     OVERLAY_SHOW
-} from '_actions/actions';
+} from './actions';
 
 let _timeOutShowSubMenu = null;
 let _timeOutMenu        = null;

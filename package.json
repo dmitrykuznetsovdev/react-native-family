@@ -3,47 +3,29 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "android-setup-port": "adb reverse tcp:8081 tcp:8080",
-    "build": "NODE_ENV=production TYPE_ENV=production node_modules/.bin/rnws bundle",
-    "test": "eslint src",
-    "start": "NODE_ENV=development TYPE_ENV=development node_modules/.bin/rnws start --resetCache --port 6000"
-  },
-  "engines": {
-    "node": ">=4",
-    "npm": ">=2 <4"
+    "startApp": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "NODE_ENV=development TYPE_ENV=development npm run startApp"
   },
   "dependencies": {
-    "lodash": "^4.2.0",
+    "lodash": "^4.0.0",
     "moment": "^2.11.1",
     "raven-js": "^2.1.0",
     "react": "^0.14.6",
     "react-native": "^0.18.0",
     "react-native-htmlview": "^0.2.0",
     "react-native-vector-icons": "^1.1.0",
-    "react-redux": "^4.2.1",
-    "redux": "^3.2.1",
+    "react-redux": "^4.0.6",
+    "redux": "^3.0.5",
     "redux-promise": "^0.5.1",
     "redux-thunk": "^1.0.3",
     "stacktrace-js": "^1.0.1"
   },
   "devDependencies": {
-    "babel-core": "^6.3.17",
-    "babel-eslint": "^5.0.0-beta6",
-    "babel-loader": "^6.2.0",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13",
-    "babel-preset-stage-0": "^6.3.13",
-    "babel-preset-stage-1": "^6.3.13",
-    "eslint": "^1.10.3",
-    "eslint-loader": "^1.1.1",
-    "eslint-plugin-react": "^3.11.2",
     "lodash": "^4.0.0",
     "react-native-webpack-server": "^0.8.4",
     "redux-devtools": "^3.0.1",
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.2",
-    "redux-logger": "^2.4.0",
-    "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0"
+    "redux-logger": "^2.4.0"
   }
 }

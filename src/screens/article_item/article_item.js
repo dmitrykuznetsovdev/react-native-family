@@ -7,10 +7,13 @@ import React, {
 } from 'react-native';
 import {connect} from 'react-redux';
 import styles from './style';
-import CardFull from '_components/card_full';
+import CardFull from '/src/components/card_full';
 
 
-import { getArticleDetail, getArticleRelated } from '_actions/articles';
+import {
+  getArticleDetail,
+  getArticleRelated
+} from '/src/module_dal/actions/articles';
 
 import {
   getNewsShowcases,

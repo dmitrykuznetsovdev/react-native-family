@@ -10,16 +10,16 @@ import React, {
 } from 'react-native';
 import {connect} from 'react-redux';
 import styles from './style';
-import CardFull from '_components/card_full';
+import CardFull from '/src/components/card_full';
 
 
-import { getNewsById, getNewsRelated } from '_actions/news';
+import { getNewsById, getNewsRelated } from '/src/module_dal/actions/news';
 
 import {
   getNewsShowcases,
   getNewsDetailShowcase,
   loadMoreShowcase
-} from '_actions/showcase';
+} from '/src/module_dal/actions/showcase';
 
 class NewsItemScreen extends Component {
   constructor(props, context) {

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {ProductServices} from '_services/product_services';
+import {ProductServices} from '../services/product_services';
 
 
 import {

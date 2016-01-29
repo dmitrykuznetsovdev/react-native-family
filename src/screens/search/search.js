@@ -10,8 +10,8 @@ import React, {
 } from 'react-native';
 import {connect} from 'react-redux';
 import styles from './style';
-import ScrollListView from '_components/scroll_list_view';
-import CardPreview from '_components/card_full/card_preview';
+import ScrollListView from '/src/components/scroll_list_view';
+import CardPreview from '/src/components/card_full/card_preview';
 import SearchLine from './search_line';
 import Tabs from './tabs';
 
@@ -21,7 +21,7 @@ import {
   fetchContentByTypeTabs,
   fetchDataByPage,
   fetchMoreNews
-} from '_actions/search';
+} from '/src/module_dal/actions/search';
 
 class SearchScreen extends Component {
   constructor(props, context) {

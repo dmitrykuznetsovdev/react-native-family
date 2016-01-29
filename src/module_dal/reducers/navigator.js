@@ -1,4 +1,4 @@
-import { NAVIGATOR_CHANGE } from '_actions/actions';
+import { NAVIGATOR_CHANGE } from '../actions/actions';
 
 const navigator = (state = {
   data: {}

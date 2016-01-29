@@ -1,6 +1,6 @@
 const { StyleSheet } = React;
-import * as device from '_utils/device';
-import {basePaddingLayouts} from '_app/styles/base';
+import * as device from 'src/utils/device';
+import {basePaddingLayouts} from 'src/styles/base';
 
 export default StyleSheet.create({
   container: {

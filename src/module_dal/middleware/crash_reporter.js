@@ -1,7 +1,7 @@
 import Raven from 'raven-js';
 import StackTrace from 'stacktrace-js';
 import _ from 'lodash';
-import { RAVEN_CAPTURE_EXCEPTION } from '_actions/actions';
+import { RAVEN_CAPTURE_EXCEPTION } from '../actions/actions';
 
 
 function captureException(err, action, store) {

@@ -10,16 +10,16 @@ import React, {
 } from 'react-native';
 import {connect} from 'react-redux';
 import styles from './style';
-import ShowcaseItems from '_components/showcase_items';
-import ScrollListView from '_components/scroll_list_view';
+import ShowcaseItems from '/src/components/showcase_items';
+import ScrollListView from '/src/components/scroll_list_view';
 
-import { fetchNews, fetchNewsByRubric } from '_actions/news';
-import { getRubricsBySlug } from '_actions/common';
+import { fetchNews, fetchNewsByRubric } from '/src/module_dal/actions/news';
+import { getRubricsBySlug } from '/src/module_dal/actions/common';
 import {
   getNewsShowcases,
   fetchNewsRubricShowcases,
   loadMoreShowcase
-} from '_actions/showcase';
+} from '/src/module_dal/actions/showcase';
 
 class NewsScreen extends Component {
   constructor(props, context) {

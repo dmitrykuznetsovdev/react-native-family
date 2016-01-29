@@ -1,5 +1,5 @@
 const { StyleSheet } = React;
-import * as device from '_utils/device';
+import * as device from '/src/utils/device';
 
 
 export default StyleSheet.create({

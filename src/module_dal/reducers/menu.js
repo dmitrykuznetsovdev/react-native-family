@@ -5,7 +5,7 @@ import {
     MENU_TOGGLE_ACTIVE,
     MENU_SET_TYPE,
     MENU_SET_SUBMENU_TOUCH
-} from '_actions/actions';
+} from '../actions/actions';
 
 
 let subMenu  = new Map();

@@ -1,6 +1,6 @@
 const { StyleSheet } = React;
-import * as device from '_utils/device';
-import {baseStyleLayoutsContainer} from '_app/styles/base';
+import * as device from '/src/utils/device';
+import {baseStyleLayoutsContainer} from '/src/styles/base';
 
 const flex   = 1;
 const center = {
