@@ -31,19 +31,19 @@
    * on the same Wi-Fi network.
    */
 
-  jsCodeLocation = [NSURL URLWithString:@"http://localhost:6000/index.ios.bundle?platform=ios&dev=true"];
+  //jsCodeLocation = [NSURL URLWithString:@"http://localhost:6000/index.ios.bundle?platform=ios&dev=true"];
 
   /**
    * OPTION 2
    * Load from pre-bundled file on disk. To re-generate the static bundle
    * from the root of your project directory, run
    *
-   * $ curl 'http://localhost:6000/index.ios.bundle?dev=false&minify=true' -o ios/main.jsbundle
+   * $ curl 'http://localhost:8080/index.ios.bundle?dev=false&minify=true' -o ios/main.jsbundle
    *
    * see http://facebook.github.io/react-native/docs/runningondevice.html
    */
 
-//   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"App"

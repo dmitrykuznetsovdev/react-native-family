@@ -1,12 +1,12 @@
 'use strict'
 
-var path         = require('path');
-var webpack      = require('webpack');
-var _            = require('lodash');
+var path    = require('path');
+var webpack = require('webpack');
+var _       = require('lodash');
 
 
-var appPath       = path.join(__dirname, 'src'),
-    assetsPath    = path.join(appPath, 'assets');
+var appPath    = path.join(__dirname, 'src'),
+    assetsPath = path.join(appPath, 'assets');
 
 var aliases = {
   _app: appPath,
@@ -24,45 +24,27 @@ var aliases = {
 };
 
 
-var DEBUG  = process.env.NODE_ENV !== 'production' ? true : false;
-
 var baseConfig = {
   debug: true,
   devtool: 'eval',
-  devServer: {
-    contentBase: './src',
-    info: true,
-    hot: false,
-    inline: true,
-    historyApiFallback: true,
-    //proxy: {'*': 'http://192.168.33.10/'}
-  },
   entry: {
     'index.ios': ['./src/main.ios.js'],
     'index.android': ['./src/main.android.js']
   },
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname),
     filename: '[name].js'
   },
   resolve: {
     alias: aliases
   },
   module: {
-    /*preLoaders: [
-      {
-        test: /\.(js|jsx|es6)$/,
-        include: path.resolve(__dirname, 'src'),
-        loader: 'eslint-loader'
-      }
-    ],*/
     loaders: [
       {
         test: /\.js$/,
         include: /node_modules\/react-native/,
         loader: 'babel',
         query: {
-          cacheDirectory: true,
           presets: ['es2015', 'stage-1', 'react']
         }
       },
@@ -71,7 +53,6 @@ var baseConfig = {
         exclude: /node_modules/,
         loader: 'babel',
         query: {
-          cacheDirectory: true,
           presets: ['es2015', 'stage-1', 'react']
         }
       }
@@ -103,6 +84,13 @@ var productionConfig = {
 }
 
 if (process.env.NODE_ENV == 'production') {
+  console.log('process.env.NODE_ENV');
+  console.log('++++++++++++++++++++++++++');
+  console.log('++++++++++++++++++++++++++');
+  console.log('++++++++++++++++++++++++++');
+  console.log('++++++++++++++++++++++++++');
+  console.log('++++++++++++++++++++++++++');
+
   baseConfig = _.merge(baseConfig, productionConfig);
 }
 
