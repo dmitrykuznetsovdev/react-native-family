@@ -1,5 +1,5 @@
 const { StyleSheet } = React;
-import * as device from '/src/utils/device';
+import * as device from '../../utils/device';
 
 let item = {
   flex: 1,

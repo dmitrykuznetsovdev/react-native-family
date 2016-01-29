@@ -7,8 +7,8 @@ import React, {
 import _ from 'lodash';
 
 import HTMLView from 'react-native-htmlview';
-import Link  from '/src/components/link';
-import Filters from '/src/utils/filters';
+import Link  from '../../components/link';
+import Filters from '../../utils/filters';
 import styles, {htmlViewStyle} from './style';
 
 const CardPreview = (props) => {

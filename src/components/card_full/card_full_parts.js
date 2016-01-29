@@ -9,8 +9,8 @@ import _ from 'lodash';
 import styles, {htmlViewStyle} from './style';
 import UrlParse from 'url';
 import HTMLView from 'react-native-htmlview';
-import Filters from '/src/utils/filters';
-import Link from '/src/components/link';
+import Filters from '../../utils/filters';
+import Link from '../../components/link';
 
 
 /**

@@ -1,4 +1,4 @@
-import {Http} from '_utils/http';
+import {Http} from '../../utils/http';
 
 const SubscribeServices = {
   subscribe(data){

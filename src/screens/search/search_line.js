@@ -12,10 +12,10 @@ import React, {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 import styles from './style';
-import stylesBase from '/scr/styles/base';
+import stylesBase from '../../styles/base';
 
-import { SEARCH_RESET_PREDICATES } from '/src/module_dal/actions/actions'
-import { fetchTabs, fetchSearchQuery } from '/src/module_dal/actions/search';
+import { SEARCH_RESET_PREDICATES } from '../../module_dal/actions/actions'
+import { fetchTabs, fetchSearchQuery } from '../../module_dal/actions/search';
 
 class SearchLine extends Component {
   constructor(props, context) {

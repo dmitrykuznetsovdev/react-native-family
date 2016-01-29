@@ -7,7 +7,7 @@ import React, {
 } from 'react-native';
 import {connect} from 'react-redux';
 import styles from './style';
-import Filters from '/src/utils/filters';
+import Filters from '../../utils/filters';
 
 
 class WebViewScreen extends Component {

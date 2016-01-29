@@ -4,8 +4,8 @@
  */
 import React, {Component, AppRegistry} from 'react-native';
 import { Provider } from 'react-redux';
-import store from './store';
-import Router from './router';
+import store from './src/store';
+import Router from './src/router';
 
 class Root extends Component {
 
