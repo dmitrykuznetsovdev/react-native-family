@@ -7,6 +7,7 @@ import React, {
   Navigator,
   StyleSheet,
   TouchableOpacity,
+  StatusBarIOS,
   Dimensions,
   View,
   Text,
@@ -25,14 +26,20 @@ import SearchScreen from '_screens/search';
 import Menu from '_components/menu';
 import WebViewScreen from '_screens/web_view';
 import {SetNavigator} from '_components/link';
-import styles from './styles/base';
+import styles, {StatusBarStyle} from './styles/base';
 import Link from '_components/link';
 
 import { NAVIGATOR_CHANGE } from '_actions/actions';
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const BaseConfig   = Navigator.SceneConfigs.FloatFromRight;
+const SCREEN_WIDTH  = Dimensions.get('window').width;
+const BaseConfig    = Navigator.SceneConfigs.FloatFromRight;
 BaseConfig.gestures = {};
+
+/**
+ * Перекрашиваем текст в StatusBarIOS в белый цвет
+ * незабыть добавить в info.plist -  UIViewControllerBasedStatusBarAppearance : NO
+ */
+StatusBarIOS.setStyle(1);
 
 /**
  *
@@ -50,9 +57,9 @@ const CustomLeftToRightGesture = {
  */
 const CustomSceneConfig = {
   ...BaseConfig,
-  springTension  : 100,
+  springTension : 100,
   springFriction : 1,
-  gestures       : {
+  gestures : {
     pop : CustomLeftToRightGesture
   }
 }
@@ -66,37 +73,37 @@ class Router extends Component {
     super(props)
 
     this.state = {
-      x          : 0,
+      x : 0,
       translateX : new Animated.Value(0),
-      opacity    : 1
+      opacity : 1
     }
 
     this.dragging    = false;
     this._isOpenMenu = false;
     this._drag       = {
-      x        : 0,
-      y        : 0,
-      dragX    : 115,
-      dragY    : 100,
+      x : 0,
+      y : 0,
+      dragX : 115,
+      dragY : 100,
       dragBack : 60
     }
 
     this._currentScreenId = '';
 
     this.initialRoute = {
-      title             : 'App Name Test',
-      type              : 'tab',
-      id                : 'search',
+      title : 'App Name Test',
+      type : 'tab',
+      id : 'news',
       navigation_params : {
-        title : 'Поиск'
+        title : 'Новости'
       }
     }
 
     this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder        : (evt, gestureState) => false,
+      onStartShouldSetPanResponder : (evt, gestureState) => false,
       onStartShouldSetPanResponderCapture : this._onStartShouldSetResponder.bind(this),
-      onMoveShouldSetPanResponder         : this._onResponderMove.bind(this),
-      onMoveShouldSetPanResponderCapture  : (evt, gestureState) => false
+      onMoveShouldSetPanResponder : this._onResponderMove.bind(this),
+      onMoveShouldSetPanResponderCapture : (evt, gestureState) => false
     });
   }
 
@@ -156,11 +163,11 @@ class Router extends Component {
    */
   _navBarRouteMapper() {
     return {
-      LeftButton  : (route, navigator) => {
+      LeftButton : (route, navigator) => {
         if (this.initialRoute.id != route.id) {
           return (
             <TouchableOpacity style={styles.crumbIconPlaceholder} onPress={() => { navigator.pop() }}>
-              <Icon name="arrow-left" style={styles.crumbIcon}/>
+              <Icon name="angle-left" style={styles.crumbIconAngle}/>
             </TouchableOpacity>
           )
         } else {
@@ -171,7 +178,7 @@ class Router extends Component {
           )
         }
       },
-      Title       : (route) => {
+      Title : (route) => {
         const {navigation_params} = route;
         return (
           <View style={styles.title}>
@@ -182,7 +189,7 @@ class Router extends Component {
       },
       RightButton : (route) => {
         const nav = {
-          to    : "search",
+          to : "search",
           title : 'Поиск'
         };
         return (route.id == 'search' ? null :
@@ -222,7 +229,8 @@ class Router extends Component {
    * @private
    */
   _onResponderMove(evt, gestureState) {
-    evt                   = evt.nativeEvent;
+    evt = evt.nativeEvent;
+
     const {x, y, dragX, dragY, dragBack} = this._drag;
     const positionX       = Math.round(this.state.x + (evt.pageX - x));
     const prevPositionX   = Math.round(x);
@@ -278,9 +286,9 @@ class Router extends Component {
     Animated.spring(
       this.state.translateX,
       {
-        toValue  : 150,
+        toValue : SCREEN_WIDTH - 100,
         duration : 300,
-        easing   : Easing.elastic(2)
+        easing : Easing.elastic(2)
       }
     ).start();
   }
@@ -291,7 +299,7 @@ class Router extends Component {
     Animated.spring(
       this.state.translateX,
       {
-        toValue  : 0,
+        toValue : 0,
         duration : 300
       }
     ).start();

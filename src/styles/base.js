@@ -8,6 +8,12 @@ const crumbIconPlaceholder = {
   paddingLeft: device.size(10)
 }
 
+const crumbIcon = {
+  flex: 1,
+  fontSize: device.fontSize(26),
+  color: '#fff'
+}
+
 export const basePaddingLayouts = {
   padding: 10
 }
@@ -15,9 +21,15 @@ export const basePaddingLayouts = {
 export const baseStyleLayoutsContainer = {
   flex: 1,
   marginTop: device.size(65),
-  backgroundColor: '#FFF',
+  backgroundColor: '#fff',
   ...basePaddingLayouts
 }
+
+export const StatusBarStyle =  StyleSheet.create({
+  header : {
+    backgroundColor : '#3362c3'
+  }
+})
 
 export default StyleSheet.create({
   root_view: {
@@ -43,18 +55,20 @@ export default StyleSheet.create({
     lineHeight: device.fontSize(34)
   },
   title: {
-    backgroundColor : '#fff',
+    backgroundColor : '#3362c3',
     borderBottomColor: '#E8E8E6',
     borderBottomWidth: 1,
-    height: device.size(45)
+    position : 'relative',
+    top : device.size(-20),
+    height: device.size(65)
   },
   title_item: {
     position: 'absolute',
     left: 0,
     right: 0,
-    top: device.size(6),
+    bottom: device.size(12),
     fontSize: device.fontSize(18),
-    color: '#000',
+    color: '#fff',
     textAlign: 'center',
     fontWeight: 'bold',
     lineHeight: device.fontSize(27)
@@ -63,8 +77,11 @@ export default StyleSheet.create({
     ...crumbIconPlaceholder
   },
   crumbIcon: {
-    flex: 1,
-    fontSize: device.fontSize(26),
-    color: '#000'
+    ...crumbIcon
+  },
+  crumbIconAngle: {
+    ...crumbIcon,
+    fontSize: device.fontSize(35),
+    bottom : 4
   }
 })
