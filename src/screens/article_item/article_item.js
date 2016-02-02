@@ -8,6 +8,7 @@ import React, {
 import {connect} from 'react-redux/native';
 import styles from './style';
 import CardFull from '../../components/card_full';
+import Loader from '../../components/loader';
 
 
 import {
@@ -44,20 +45,12 @@ class ArticleItemScreen extends Component {
     dispatch(getArticleDetailShowcase())
   }
 
-  renderLoadingView() {
-    return (
-      <View style={styles.loader}>
-        <Text>load article...</Text>
-      </View>
-    )
-  }
-
   render() {
     let { articles, navigator } = this.props;
     let { related, detail, loader } = articles;
 
     if (loader || !detail.item) {
-      return this.renderLoadingView()
+      return <Loader />
     }
 
 

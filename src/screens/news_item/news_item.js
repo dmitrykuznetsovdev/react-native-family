@@ -11,6 +11,7 @@ import React, {
 import {connect} from 'react-redux/native';
 import styles from './style';
 import CardFull from '../../components/card_full';
+import Loader from '../../components/loader';
 
 
 import { getNewsById, getNewsRelated } from '../../module_dal/actions/news';
@@ -44,20 +45,13 @@ class NewsItemScreen extends Component {
     dispatch(getNewsRelated(id))
   }
 
-  renderLoadingView() {
-    return (
-      <View style={styles.loader}>
-        <Text>load news...</Text>
-      </View>
-    )
-  }
 
   render() {
     let { news, navigator } = this.props;
     let { related, detail, loader } = news;
 
     if (loader || !detail.item) {
-      return this.renderLoadingView()
+      return <Loader />
     }
 
 

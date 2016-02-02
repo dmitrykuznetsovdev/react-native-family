@@ -1,18 +1,11 @@
-import React, {
-  Text,
-  View,
-  Component
-} from 'react-native';
-
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { View, Component } from 'react-native';
+import Progress from 'react-native-progress';
 import styles from './style';
 
 const Loader = (props) => {
   return (
     <View style={styles.loader}>
-      <Icon name="circle" style={styles.item}/>
-      <Icon name="circle" style={styles.item}/>
-      <Icon name="circle" style={styles.item}/>
+      <Progress.Circle size={60} indeterminate={true} />
     </View>
   )
 }

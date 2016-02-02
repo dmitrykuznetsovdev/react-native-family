@@ -14,6 +14,7 @@ import ScrollListView from '../../components/scroll_list_view';
 import CardPreview from '../../components/card_full/card_preview';
 import SearchLine from './search_line';
 import Tabs from './tabs';
+import Loader from '../../components/loader';
 
 import {
   fetchTabs,
@@ -82,7 +83,7 @@ class SearchScreen extends Component {
   renderLoadingView() {
     return (
       <View style={styles.loader}>
-        <Text style={styles.loader_text}>search loading...</Text>
+        <Loader />
       </View>
     )
   }

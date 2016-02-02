@@ -13,6 +13,7 @@ import {connect} from 'react-redux/native';
 import styles from './style';
 import ShowcaseItems from '../../components/showcase_items';
 import ScrollListView from '../../components/scroll_list_view';
+import Loader from '../../components/loader';
 
 
 import {
@@ -57,14 +58,6 @@ class ArticlesScreen extends Component {
     setTimeout(()=>this.setState({loader: false}), 1000);
   }
 
-  renderLoadingView() {
-    return (
-      <View style={styles.loader}>
-        <Text>mother fucker...</Text>
-      </View>
-    )
-  }
-
   _onEndReached() {
     let {dispatch, articles } = this.props;
     let {nextPage} = articles;
@@ -81,7 +74,7 @@ class ArticlesScreen extends Component {
     const rubric = navigation_params ? navigation_params.rubric : null;
 
     if (loader) {
-      return this.renderLoadingView()
+      return <Loader />
     }
 
     /**

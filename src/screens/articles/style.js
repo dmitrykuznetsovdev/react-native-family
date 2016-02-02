@@ -12,12 +12,6 @@ export default StyleSheet.create({
     marginBottom: device.size(12),
     fontSize: 18
   },
-  loader: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   marginBottomItem: {
     marginBottom: 10
   }

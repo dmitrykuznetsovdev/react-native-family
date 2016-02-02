@@ -7,12 +7,6 @@ export default StyleSheet.create({
   container : {
     ...baseStyleLayoutsContainer
   },
-  loader: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   marginBottomItem: {
     marginBottom: 10
   }

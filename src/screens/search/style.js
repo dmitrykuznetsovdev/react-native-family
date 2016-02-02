@@ -45,13 +45,7 @@ export default StyleSheet.create({
     left: 0,
     backgroundColor: 'transparent'
   },
-  loader_text : {
-    borderColor: 'gray',
-    borderWidth: 1,
-    padding : 10,
-    backgroundColor : '#999',
-    color : '#fff'
-  },
+
   empty: {
     ...center
   },
