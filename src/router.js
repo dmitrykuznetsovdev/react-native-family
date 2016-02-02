@@ -30,17 +30,18 @@ import Link from '_components/link';
 
 import { NAVIGATOR_CHANGE } from '_actions/actions';
 
-var SCREEN_WIDTH = Dimensions.get('window').width;
-var BaseConfig = Navigator.SceneConfigs.FloatFromRight;
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const BaseConfig   = Navigator.SceneConfigs.FloatFromRight;
+BaseConfig.gestures = {};
 
 /**
  *
  * @type {{snapVelocity: number, edgeHitWidth: *}}
  */
 const CustomLeftToRightGesture = {
-  ...BaseConfig.gestures.pop,
-  snapVelocity: 8,
-  edgeHitWidth: SCREEN_WIDTH
+  ...BaseConfig.gestures,
+  snapVelocity : 8,
+  edgeHitWidth : SCREEN_WIDTH
 }
 
 /**
@@ -49,10 +50,10 @@ const CustomLeftToRightGesture = {
  */
 const CustomSceneConfig = {
   ...BaseConfig,
-  springTension: 100,
-  springFriction: 1,
-  gestures: {
-    pop: CustomLeftToRightGesture
+  springTension  : 100,
+  springFriction : 1,
+  gestures       : {
+    pop : CustomLeftToRightGesture
   }
 }
 
@@ -65,37 +66,37 @@ class Router extends Component {
     super(props)
 
     this.state = {
-      x: 0,
-      translateX: new Animated.Value(0),
-      opacity: 1
+      x          : 0,
+      translateX : new Animated.Value(0),
+      opacity    : 1
     }
 
-    this.dragging = false;
+    this.dragging    = false;
     this._isOpenMenu = false;
-    this._drag = {
-      x: 0,
-      y: 0,
-      dragX: 115,
-      dragY: 100,
-      dragBack: 60
+    this._drag       = {
+      x        : 0,
+      y        : 0,
+      dragX    : 115,
+      dragY    : 100,
+      dragBack : 60
     }
 
     this._currentScreenId = '';
 
     this.initialRoute = {
-      title: 'App Name Test',
-      type: 'tab',
-      id: 'search',
-      navigation_params: {
-        title: 'Поиск'
+      title             : 'App Name Test',
+      type              : 'tab',
+      id                : 'search',
+      navigation_params : {
+        title : 'Поиск'
       }
     }
 
     this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: (evt, gestureState) => false,
-      onStartShouldSetPanResponderCapture: this._onStartShouldSetResponder.bind(this),
-      onMoveShouldSetPanResponder: this._onResponderMove.bind(this),
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) => false
+      onStartShouldSetPanResponder        : (evt, gestureState) => false,
+      onStartShouldSetPanResponderCapture : this._onStartShouldSetResponder.bind(this),
+      onMoveShouldSetPanResponder         : this._onResponderMove.bind(this),
+      onMoveShouldSetPanResponderCapture  : (evt, gestureState) => false
     });
   }
 
@@ -155,14 +156,22 @@ class Router extends Component {
    */
   _navBarRouteMapper() {
     return {
-      LeftButton: (route, navigator) => {
-        return (route.id == 'index_screen' ? null :
+      LeftButton  : (route, navigator) => {
+        if (this.initialRoute.id != route.id) {
+          return (
+            <TouchableOpacity style={styles.crumbIconPlaceholder} onPress={() => { navigator.pop() }}>
+              <Icon name="arrow-left" style={styles.crumbIcon}/>
+            </TouchableOpacity>
+          )
+        } else {
+          return (
             <TouchableOpacity style={styles.crumbIconPlaceholder} onPress={() => { this._toggleMenu() }}>
               <Icon name="bars" style={styles.crumbIcon}/>
             </TouchableOpacity>
-        )
+          )
+        }
       },
-      Title: (route) => {
+      Title       : (route) => {
         const {navigation_params} = route;
         return (
           <View style={styles.title}>
@@ -171,10 +180,10 @@ class Router extends Component {
           </View>
         );
       },
-      RightButton: (route) => {
+      RightButton : (route) => {
         const nav = {
-          to: "search",
-          title: 'Поиск'
+          to    : "search",
+          title : 'Поиск'
         };
         return (route.id == 'search' ? null :
             <TouchableOpacity style={styles.crumbIconPlaceholder}>
@@ -213,17 +222,12 @@ class Router extends Component {
    * @private
    */
   _onResponderMove(evt, gestureState) {
-
-    if(this.initialRoute.id != this._currentScreenId) {
-      return;
-    }
-
-    evt = evt.nativeEvent;
+    evt                   = evt.nativeEvent;
     const {x, y, dragX, dragY, dragBack} = this._drag;
-    const positionX = Math.round(this.state.x + (evt.pageX - x));
-    const prevPositionX = Math.round(x);
+    const positionX       = Math.round(this.state.x + (evt.pageX - x));
+    const prevPositionX   = Math.round(x);
     const revertPositionX = prevPositionX - (prevPositionX + positionX);
-    const isOpen = this._isOpenMenu;
+    const isOpen          = this._isOpenMenu;
 
     function move() {
       if (Math.abs(evt.pageY - y) > dragY && isOpen) {
@@ -245,18 +249,18 @@ class Router extends Component {
 
   _onStartShouldSetResponder(evt) {
     this.dragging = true;
-    this._drag = {
+    this._drag    = {
       ...this._drag,
-      x: evt.nativeEvent.pageX,
-      y: evt.nativeEvent.pageY
+      x : evt.nativeEvent.pageX,
+      y : evt.nativeEvent.pageY
     }
     return false;
   }
 
   getStyle() {
     return {
-      transform: [{
-        translateX: this.state.translateX
+      transform : [{
+        translateX : this.state.translateX
       }]
     };
   }
@@ -274,21 +278,21 @@ class Router extends Component {
     Animated.spring(
       this.state.translateX,
       {
-        toValue: 150,
-        duration: 300,
-        easing: Easing.elastic(2)
+        toValue  : 150,
+        duration : 300,
+        easing   : Easing.elastic(2)
       }
     ).start();
   }
 
   resetPosition(evt) {
-    this.dragging = false;
+    this.dragging    = false;
     this._isOpenMenu = false;
     Animated.spring(
       this.state.translateX,
       {
-        toValue: 0,
-        duration: 300
+        toValue  : 0,
+        duration : 300
       }
     ).start();
   }
@@ -319,8 +323,8 @@ class Router extends Component {
     }
 
     dispatch({
-      type: NAVIGATOR_CHANGE,
-      data: route
+      type : NAVIGATOR_CHANGE,
+      data : route
     })
 
     if (this._isOpenMenu) {
