@@ -7,27 +7,27 @@ import reducers from './module_dal/reducers/index';
 import { writeState } from './module_dal/middleware/storage';
 import { crashReporter } from './module_dal/middleware/crash_reporter';
 
-const middlewares = applyMiddleware([
+const middlewares = applyMiddleware(
   thunkMiddleware,
   promiseMiddleware,
-  writeState,
+  writeState
   //crashReporter
-]);
+);
 let finalCreateStore;
 
 /*if (global.__DEV__) {
-  const logger = require('redux-logger')({
-    level: 'info',
-    collapsed: true,
-    colors: false,
-    stateTransformer: (state) => state
-  });
+ const logger = require('redux-logger')({
+ level: 'info',
+ collapsed: true,
+ colors: false,
+ stateTransformer: (state) => state
+ });
 
-  finalCreateStore = compose(
-    applyMiddleware(...middlewares, logger)
-  )(createStore);
+ finalCreateStore = compose(
+ applyMiddleware(...middlewares, logger)
+ )(createStore);
 
-}*/
+ }*/
 
 finalCreateStore = createStore(
   reducers,

@@ -17,7 +17,6 @@ import {connect} from 'react-redux/native';
 import store from './store';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import * as device from './utils/device';
 import IndexScreen from './screens/index';
 import ArticlesScreen from './screens/articles';
 import ArticleItemScreen from './screens/article_item';

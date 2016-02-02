@@ -1,7 +1,7 @@
 import React from 'react-native';
 const { StyleSheet } = React;
 import * as device from '../../utils/device';
-import {basePaddingLayouts} from '/src/styles/base';
+import {basePaddingLayouts} from '../../styles/base';
 
 export default StyleSheet.create({
   container: {
