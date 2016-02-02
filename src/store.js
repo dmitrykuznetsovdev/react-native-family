@@ -14,7 +14,7 @@ const middlewares = [
 ];
 let finalCreateStore;
 
-if (global.__DEV__) {
+/*if (global.__DEV__) {
   const logger = require('redux-logger')({
     level: 'info',
     collapsed: true,
@@ -26,9 +26,9 @@ if (global.__DEV__) {
     applyMiddleware(...middlewares, logger)
   )(createStore);
 
-}
+}*/
 
-/*finalCreateStore = applyMiddleware(...middlewares)(createStore);*/
+finalCreateStore = applyMiddleware(...middlewares)(createStore);
 
 
 export default finalCreateStore(reducers);

@@ -28,7 +28,7 @@ class NewsScreen extends Component {
     this.state = {
       loader: true,
       isLoadingTail: false,
-      dataSource : new ListView.DataSource({
+      dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       })
     };
@@ -64,13 +64,23 @@ class NewsScreen extends Component {
   }
 
   _onEndReached() {
-    /*let {dispatch, articles } = this.props;
-    let {nextPage} = articles;
-    if (nextPage) {
+    const {dispatch, news, navigation_params } = this.props;
+    const rubric = navigation_params ? navigation_params.rubric : null;
+    const {items, page, request } = news.news_list;
+
+    if (page.next && page.next.length) {
+      let pageNext = Number.parseInt(request.page);
       this.setState({isLoadingTail: true})
-      dispatch(loadMoreArticles({url: nextPage, params: {page_size: 14}}))
-        .then(()=>this.setState({isLoadingTail: false}))
-    }*/
+
+      dispatch(fetchNews(pageNext + 1 , rubric || ''))
+        .then(()=> {
+          this.setState({isLoadingTail: false})
+        })
+        .catch(()=> {
+          this.setState({isLoadingTail: false})
+        })
+
+    }
   }
 
   renderLoadingView() {
@@ -82,7 +92,7 @@ class NewsScreen extends Component {
   }
 
   render() {
-    const { news, navigation_params } = this.props;
+    const { news } = this.props;
     const { loader, isLoadingTail } = this.state;
     const { news_list, title } = news;
 
@@ -92,6 +102,9 @@ class NewsScreen extends Component {
 
     return (
       <View style={styles.container}>
+        <View>
+          <Text style={styles.title}>{title}</Text>
+        </View>
         {news_list.items.length ?
           <ScrollListView
             dataSource={this.state.dataSource.cloneWithRows(news_list.items)}

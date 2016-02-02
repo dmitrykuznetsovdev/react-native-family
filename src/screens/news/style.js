@@ -7,6 +7,12 @@ export default StyleSheet.create({
     marginTop: device.size(65),
     backgroundColor: '#FFF'
   },
+  title : {
+    marginTop: device.size(5),
+    marginBottom: device.size(12),
+    fontSize: 18
+  },
+
   loader: {
     flex: 1,
     flexDirection: 'row',

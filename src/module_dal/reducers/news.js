@@ -25,7 +25,14 @@ const news = (state = {
 		case GET_NEWS_LIST:
 			return {
 				...state,
-				news_list : action.data
+				news_list : {
+          ...state.news_list,
+          ...action.data,
+          items : [
+            ...state.news_list.items,
+            ...action.data.items
+          ]
+        }
 			}
 		case GET_NEWS_DETAIL:
 			return {
@@ -40,7 +47,14 @@ const news = (state = {
 		case GET_NEWS_BY_RUBRIC:
 			return {
 				...state,
-				news_list : action.data
+				news_list : {
+          ...state.news_list,
+          ...action.data,
+          items : [
+            ...state.news_list.items,
+            ...action.data.items
+          ]
+        }
 			}
 		case GET_NEWS_RUBRIC_INFO:
 			return {

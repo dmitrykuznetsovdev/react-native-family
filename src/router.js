@@ -163,9 +163,9 @@ class Router extends Component {
     this.initialRoute = {
       title: 'App Name Test',
       type: 'tab',
-      id: 'search',
+      id: 'news',
       navigation_params: {
-        title: 'Поиск'
+        title: 'Новости'
       }
     }
 
