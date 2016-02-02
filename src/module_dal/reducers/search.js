@@ -93,11 +93,6 @@ const search = (state = {
         ...state,
         loader : action.loader
       }
-    case SEARCH_SHOW_FIELD:
-      return {
-        ...state,
-        opened : action.open
-      }
     default:
       return {...state}
   }

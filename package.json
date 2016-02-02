@@ -4,7 +4,6 @@
   "license": "MIT",
   "scripts": {
     "startApp": "node_modules/react-native/packager/packager.sh --port 6000",
-    "install" : "npm i && npm run postinstall",
     "start": "NODE_ENV=development TYPE_ENV=development npm run startApp",
     "postinstall": "find node_modules -type f -name .babelrc | grep -v /react-native/ | xargs rm"
   },
