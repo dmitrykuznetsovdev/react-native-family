@@ -10,6 +10,7 @@ import React, {
 } from 'react-native';
 import {connect} from 'react-redux/native';
 import styles from './style';
+import Loader from '../../components/loader';
 
 class IndexScreen extends Component {
 
@@ -31,6 +32,7 @@ class IndexScreen extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.loader}>INDEX</Text>
+        <Loader />
       </View>
     );
   }
