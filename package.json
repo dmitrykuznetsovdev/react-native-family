@@ -5,7 +5,8 @@
   "scripts": {
     "startApp": "node_modules/react-native/packager/packager.sh --port 6000",
     "start": "NODE_ENV=development TYPE_ENV=development npm run startApp",
-    "postinstall": "find node_modules -type f -name .babelrc | grep -v /react-native/ | xargs rm"
+    "postinstall": "find node_modules -type f -name .babelrc | grep -v /react-native/ | xargs rm",
+    "buildIOS" : "react-native bundle --entry-file index.ios.js --bundle-output  main.jsbundle"
   },
   "dependencies": {
     "lodash": "^4.2.0",
@@ -19,18 +20,17 @@
     "redux": "^3.2.1",
     "redux-promise": "^0.5.1",
     "redux-thunk": "^1.0.3",
-    "stacktrace-js": "^1.0.1"
+    "url": "^0.11.0",
+    "events": "^1.1.0",
+    "stacktrace-js": "^1.0.1",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "babel": "^6.3.26",
-    "events": "^1.1.0",
-    "lodash": "^4.0.0",
-    "path": "^0.12.7",
     "redux-devtools": "^3.0.1",
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.2",
     "redux-logger": "^2.4.0",
-    "source-map-support": "^0.4.0",
-    "url": "^0.11.0"
+    "source-map-support": "^0.4.0"
   }
 }
