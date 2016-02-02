@@ -84,13 +84,6 @@ var productionConfig = {
 }
 
 if (process.env.NODE_ENV == 'production') {
-  console.log('process.env.NODE_ENV');
-  console.log('++++++++++++++++++++++++++');
-  console.log('++++++++++++++++++++++++++');
-  console.log('++++++++++++++++++++++++++');
-  console.log('++++++++++++++++++++++++++');
-  console.log('++++++++++++++++++++++++++');
-
   baseConfig = _.merge(baseConfig, productionConfig);
 }
 

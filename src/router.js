@@ -14,6 +14,7 @@ import React, {
   Image
 } from 'react-native';
 import {connect} from 'react-redux';
+import store from './store';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as device from '_utils/device';
@@ -317,7 +318,6 @@ class Router extends Component {
    * @private
    */
   _onWillFocus(route) {
-    const { dispatch } = this.props;
     let routeId = route.id;
 
     if (route.id) {
@@ -333,7 +333,7 @@ class Router extends Component {
       routeId
     }
 
-    dispatch({
+    store.dispatch({
       type : NAVIGATOR_CHANGE,
       data : route
     })
@@ -366,7 +366,7 @@ class Router extends Component {
   }
 }
 
-export default connect()(Router);
+export default Router;
 
 
 

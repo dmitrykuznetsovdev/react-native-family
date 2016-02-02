@@ -6,12 +6,12 @@ import reducers from '_reducers/index'
 import { writeState } from '_middleware/storage';
 import { crashReporter } from '_middleware/crash_reporter';
 
-const middlewares = [
+const middlewares = applyMiddleware([
   thunkMiddleware,
   promiseMiddleware,
   writeState,
   //crashReporter
-];
+]);
 let finalCreateStore;
 
 /*if (global.__DEV__) {
@@ -28,7 +28,12 @@ let finalCreateStore;
 
 }*/
 
-finalCreateStore = applyMiddleware(...middlewares)(createStore);
+finalCreateStore = createStore(
+  reducers,
+  compose(
+    middlewares
+  )
+)
 
+export default finalCreateStore;
 
-export default finalCreateStore(reducers);
