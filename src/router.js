@@ -187,16 +187,19 @@ class Router extends Component {
           </View>
         );
       },
-      RightButton : (route) => {
+      RightButton : (route, navigator) => {
+
         const nav = {
-          to : "search",
-          title : 'Поиск'
+          id : 'search',
+          title : 'Поиск',
+          navigation_params : {
+            title : 'Поиск'
+          }
         };
         return (route.id == 'search' ? null :
-            <TouchableOpacity style={styles.crumbIconPlaceholder}>
-              <Link {...nav} >
+            <TouchableOpacity style={styles.crumbIconPlaceholder}
+                              onPress={() => { navigator.push(nav)}}>
                 <Icon name="search" style={styles.crumbIcon}/>
-              </Link>
             </TouchableOpacity>
         )
       }
