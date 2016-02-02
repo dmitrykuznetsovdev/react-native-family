@@ -46,11 +46,14 @@ export default StyleSheet.create({
     borderBottomWidth : 1
   },
 
+  w_icons : {
+    width  : device.size(30),
+    justifyContent: 'center',
+    alignItems : 'center'
+  },
   icons : {
     position : 'relative',
     top : device.size(10),
-    width  : device.size(30),
-
     fontSize : device.fontSize(15),
     ...colorTextAndIcon
   }

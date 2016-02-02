@@ -54,7 +54,9 @@ const Menu = (props) => {
 
         return (
           <Link {...item} key={i} style={[styles.item_menu, styl]}>
-            <Icon name={`${item.icon}`} style={styles.icons}/>
+            <View style={styles.w_icons}>
+              <Icon name={`${item.icon}`} style={styles.icons}/>
+            </View>
             <Text style={styles.item}>{item.name}</Text>
           </Link>
         )
