@@ -4,11 +4,11 @@ import {Http} from '_utils/http';
 const SearchServices = {
 
   /**
-   * @param data = {query : query}
+   * @param query
    */
-  getSearchTabs(data){
+  getSearchTabs(query){
     return Http.get({
-      data : data,
+      data : { query },
       url : '/api/v1/content/content/searchtabs.json'
     });
   },

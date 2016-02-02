@@ -8,7 +8,8 @@ import {
     SEARCH_GET_DATA_BY_TABS,
     SEARCH_GET_DATA_BY_PAGE,
     SEARCH_GET_PREDICATES,
-    SEARCH_LOADER
+    SEARCH_LOADER,
+    SEARCH_MORE
 } from './actions';
 
 
@@ -16,7 +17,7 @@ import {
  * список статей
  */
 export const fetchTabs = (query, tab) => dispatch => {
-  return SearchServices.getSearchTabs({query})
+  return SearchServices.getSearchTabs(query)
       .then((data)=>
           dispatch({type: SEARCH_GET_TABS, data, tab})
       )
@@ -57,6 +58,14 @@ export const fetchContentByTypeTabs = (url, tab) => dispatch => {
       .then((data)=> {
         return dispatch({type: SEARCH_GET_DATA_BY_TABS, data, tab})
       })
+      .catch(failLoadContent.bind(this, dispatch))
+}
+
+export const fetchMoreNews = (url) => dispatch => {
+  return SearchServices.getSearchByUrl(url)
+      .then((data)=>
+        dispatch({type: SEARCH_MORE, data})
+      )
       .catch(failLoadContent.bind(this, dispatch))
 }
 

@@ -1,5 +1,6 @@
 import path from 'path';
 import _ from 'lodash';
+import Url from 'url';
 
 
 /**
@@ -23,7 +24,10 @@ class Http {
 
   get(params) {
     let copyParams  = {...params};
-    let url = `http://family.rambler.ru${copyParams.url}`;
+    const data = copyParams && copyParams.data ? copyParams.data : {};
+    const query = Url.format({query : data});
+    let url = `http://family.rambler.ru${copyParams.url}${query ? query : ''}`;
+
     return fetch(url, {
       method: "GET",
       ...this.headers,

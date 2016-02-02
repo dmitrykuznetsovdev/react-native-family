@@ -22,26 +22,6 @@ export const GET_NEWS_RUBRIC_INFO    = 'GET_NEWS_RUBRIC_INFO';
 export const GET_LOOKS               = 'GET_LOOKS';
 export const GET_LOOKS_BY_SLUG       = 'GET_LOOKS_BY_SLUG';
 
-export const LOOK_SELECTED       = 'LOOK_SELECTED';
-export const LOOK_UN_SELECTED    = 'LOOK_UN_SELECTED';
-export const LOOKS_IMAGE_SIZE    = 'LOOKS_IMAGE_SIZE';
-export const SET_ACTIVE_LOOK     = 'SET_ACTIVE_LOOK';
-export const FILTER_EXCLUDE_LOOK = 'FILTER_EXCLUDE_LOOK';
-
-export const HEADER_MOUSEOVER        = 'HEADER_MOUSEOVER';
-export const HEADER_MOUSEOUT         = 'HEADER_MOUSEOUT';
-export const HEADER_SUBMENU_SHOW     = 'HEADER_SUBMENU_SHOW';
-export const HEADER_SUBMENU_HIDE     = 'HEADER_SUBMENU_HIDE';
-export const HEADER_SUBMENU_SET_TYPE = 'HEADER_SUBMENU_SET_TYPE';
-export const HEADER_SET_DATA         = 'HEADER_SET_DATA';
-
-
-export const MENU_TOGGLE_ACTIVE     = 'MENU_TOGGLE_ACTIVE';
-export const MENU_SET_TYPE          = 'MENU_SET_TYPE';
-export const MENU_SET_SUBMENU_TOUCH = 'MENU_SET_SUBMENU_TOUCH';
-
-export const SET_SECTION_FOOTER_TEXT = 'SET_SECTION_FOOTER_TEXT';
-
 export const PRODUCTS_GET_CATEGORIES      = 'PRODUCTS_GET_CATEGORIES';
 export const PRODUCTS_GET_LIST            = 'PRODUCTS_GET_LIST';
 export const PRODUCTS_LOAD_MORE           = 'PRODUCTS_LOAD_MORE';
@@ -59,7 +39,7 @@ export const SEARCH_GET_DATA_BY_PAGE  = 'SEARCH_GET_DATA_BY_PAGE';
 export const SEARCH_LOADER            = 'SEARCH_LOADER';
 export const SEARCH_GET_PREDICATES    = 'SEARCH_GET_PREDICATES';
 export const SEARCH_RESET_PREDICATES  = 'SEARCH_RESET_PREDICATES';
-export const SEARCH_SHOW_FIELD        = 'SEARCH_SHOW_FIELD';
+export const SEARCH_MORE              = 'SEARCH_MORE';
 
 export const OVERLAY_SHOW = 'OVERLAY_SHOW';
 
@@ -74,7 +54,7 @@ export const NAVIGATOR_CHANGE = 'NAVIGATOR_CHANGE';
  */
 export function actionGetSectionShowcase({section, data}) {
   return {
-    type: GET_SECTION_SHOWCASE,
+    type : GET_SECTION_SHOWCASE,
     section,
     data
   };
@@ -89,7 +69,7 @@ export function actionGetSectionShowcase({section, data}) {
  */
 export function actionLoadMoreSectionShowcase({section, data, countSlice}) {
   return {
-    type: APPEND_SECTION_SHOWCASE,
+    type : APPEND_SECTION_SHOWCASE,
     section,
     data,
     countSlice
@@ -107,9 +87,9 @@ export function actionTagsBySlug({slug, data}) {
   let dataSlug   = {};
   dataSlug[slug] = {...data};
   return {
-    type: SET_TAG_BY_SLUG,
+    type : SET_TAG_BY_SLUG,
     slug,
-    data: dataSlug
+    data : dataSlug
   };
 }
 
@@ -121,7 +101,7 @@ export function actionTagsBySlug({slug, data}) {
  */
 export function actionArticlesByRubric(data) {
   return {
-    type: GET_ARTICLES_BY_RUBRIC,
+    type : GET_ARTICLES_BY_RUBRIC,
     data
   };
 }
@@ -133,7 +113,7 @@ export function actionArticlesByRubric(data) {
  */
 export function actionGetCategoriesProducts(data) {
   return {
-    type: PRODUCTS_GET_CATEGORIES,
+    type : PRODUCTS_GET_CATEGORIES,
     data
   };
 }
@@ -145,7 +125,7 @@ export function actionGetCategoriesProducts(data) {
  */
 export function actionGetListProducts(data) {
   return {
-    type: PRODUCTS_GET_LIST,
+    type : PRODUCTS_GET_LIST,
     data
   };
 }
@@ -157,7 +137,7 @@ export function actionGetListProducts(data) {
  */
 export function actionAppendListProducts(data) {
   return {
-    type: PRODUCTS_LOAD_MORE,
+    type : PRODUCTS_LOAD_MORE,
     data
   };
 }

@@ -9,7 +9,8 @@ import {
     SEARCH_LOADER,
     SEARCH_GET_PREDICATES,
     SEARCH_RESET_PREDICATES,
-    SEARCH_SHOW_FIELD
+    SEARCH_SHOW_FIELD,
+    SEARCH_MORE
 } from '_actions/actions';
 
 
@@ -44,6 +45,18 @@ const search = (state = {
         query : {
           ...state.query,
           ...action.data
+        }
+      }
+    case SEARCH_MORE:
+      return {
+        ...state,
+        query : {
+          ...state.query,
+          ...action.data,
+          items : [
+            ...state.query.items,
+            ...action.data.items
+          ]
         }
       }
     case SEARCH_GET_DATA_BY_PAGE:

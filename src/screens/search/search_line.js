@@ -32,9 +32,12 @@ class SearchLine extends Component {
     const { dispatch } = this.props;
   }
 
+	/**
+   *
+   * @private
+   */
   _onSearch() {
-
-    const { dispatch, search } = this.props;
+    const { dispatch } = this.props;
     const {text, saveText} = this.state;
     this._loading = true;
 
@@ -44,11 +47,9 @@ class SearchLine extends Component {
         saveText: text
       }
 
-      const searchText = encodeURIComponent(text);
-
       Promise.all([
-          dispatch(fetchTabs(searchText, '')),
-          dispatch(fetchSearchQuery('', searchText))
+          dispatch(fetchTabs(text, '')),
+          dispatch(fetchSearchQuery('', text))
         ])
         .then(() => {
           this._loading = false
@@ -61,16 +62,17 @@ class SearchLine extends Component {
 
 
   render() {
-    const { search, navigation_params } = this.props;
-
     return (
       <View style={styles.search_line}>
         <TextInput
           style={styles.input}
           ref={(c) => this._input = c}
-          placeholder="поищи какое нибудь говно"
+          placeholder="поищи что-нибудь..."
           placeholderTextColor="gray"
           onSubmitEditing={this._onSearch.bind(this)}
+          autoFocus={true}
+          keyboardType="default"
+          maxLength={100}
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}/>
 

@@ -19,7 +19,8 @@ import {
   fetchTabs,
   fetchSearchQuery,
   fetchContentByTypeTabs,
-  fetchDataByPage
+  fetchDataByPage,
+  fetchMoreNews
 } from '_actions/search';
 
 class SearchScreen extends Component {
@@ -27,10 +28,10 @@ class SearchScreen extends Component {
     super(props, context);
 
     this.state = {
-      loader: true,
-      isLoadingTail: false,
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2
+      loader        : true,
+      isLoadingTail : false,
+      dataSource    : new ListView.DataSource({
+        rowHasChanged : (row1, row2) => row1 !== row2
       })
     };
 
@@ -60,13 +61,18 @@ class SearchScreen extends Component {
   }
 
   hideLoader() {
-    setTimeout(()=>this.setState({loader: false}), 1000);
+    setTimeout(()=>this.setState({loader : false}), 1000);
   }
 
   _onEndReached() {
     const {search, dispatch} = this.props;
-    const {activeTab, searchQuery} = search;
-    //dispatch(fetchDataByPage(activeTab, searchQuery, page))
+    const {page} = search.query;
+    if (page && page.next) {
+      this.setState({isLoadingTail : true})
+      dispatch(fetchMoreNews(page.next))
+        .then(()=> this.setState({isLoadingTail : false}))
+        .catch(()=> this.setState({isLoadingTail : false}))
+    }
   }
 
   /**
@@ -129,13 +135,10 @@ class SearchScreen extends Component {
       const url         = params.url;
       const contentType = params.contentType;
       this._loading     = true;
+
       dispatch(fetchContentByTypeTabs(url, contentType))
-        .then(()=> {
-          this._loading = false;
-        })
-        .catch(()=> {
-          this._loading = false;
-        })
+        .then(()=> this._loading = false)
+        .catch(()=> this._loading = false)
     }
   }
 
@@ -172,6 +175,6 @@ class SearchScreen extends Component {
 }
 
 export default connect(state => ({
-  search: state.search
+  search : state.search
 }))(SearchScreen);
 
