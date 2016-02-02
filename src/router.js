@@ -31,7 +31,7 @@ import Link from '_components/link';
 import { NAVIGATOR_CHANGE } from '_actions/actions';
 
 var SCREEN_WIDTH = Dimensions.get('window').width;
-var BaseConfig   = Navigator.SceneConfigs.FloatFromRight;
+var BaseConfig = Navigator.SceneConfigs.FloatFromRight;
 
 /**
  *
@@ -58,85 +58,6 @@ const CustomSceneConfig = {
 
 /**
  *
- * @param route
- * @param navigator
- * @returns {*}
- */
-function renderScene(route, navigator) {
-
-  SetNavigator(navigator);
-
-  const screenParams = {
-    navigator,
-    ...route
-  }
-
-  switch (route.id) {
-    case 'index_screen':
-      return <IndexScreen {...screenParams} />
-      break;
-    case 'articles':
-      return <ArticlesScreen {...screenParams} />
-      break;
-    case 'articles_item':
-      return <ArticleItemScreen {...screenParams} />
-      break;
-    case 'news':
-      return <NewsScreen {...screenParams} />
-      break;
-    case 'news_item':
-      return <NewsItemScreen {...screenParams} />
-      break;
-    case 'search':
-      return <SearchScreen {...screenParams} />
-      break;
-    case 'web_view':
-      return <WebViewScreen {...screenParams} />
-      break;
-    default:
-      return <IndexScreen {...screenParams} />
-  }
-}
-
-/**
- *
- * @returns {{LeftButton: LeftButton, Title: Title, RightButton: RightButton}}
- * @private
- */
-function _navBarRouteMapper() {
-  return {
-    LeftButton: (route, navigator) => {
-      return (route.id == 'index_screen' ? null :
-          <TouchableOpacity style={styles.crumbIconPlaceholder} onPress={() => { navigator.pop(); }}>
-            <Icon name="arrow-left" style={styles.crumbIcon}/>
-          </TouchableOpacity>
-      )
-    },
-    Title: (route) => {
-      const {navigation_params} = route;
-      return (
-        <View style={styles.title}>
-          <Text style={styles.title_blank}>&nbsp;</Text>
-          <Text style={styles.title_item}>{navigation_params.title || 'TITLE'}</Text>
-        </View>
-      );
-    },
-    RightButton: (route) => {
-      const nav = {to : "search", title: 'Поиск'};
-      return (route.id  == 'search' ? null :
-        <TouchableOpacity style={styles.crumbIconPlaceholder}>
-          <Link {...nav} >
-            <Icon name="search" style={styles.crumbIcon}/>
-          </Link>
-        </TouchableOpacity>
-      )
-    }
-  }
-}
-
-
-/**
- *
  */
 class Router extends Component {
 
@@ -149,9 +70,9 @@ class Router extends Component {
       opacity: 1
     }
 
-    this.dragging    = false;
+    this.dragging = false;
     this._isOpenMenu = false;
-    this._drag       = {
+    this._drag = {
       x: 0,
       y: 0,
       dragX: 115,
@@ -159,6 +80,7 @@ class Router extends Component {
       dragBack: 60
     }
 
+    this._currentScreenId = '';
 
     this.initialRoute = {
       title: 'App Name Test',
@@ -182,6 +104,91 @@ class Router extends Component {
   }
 
   /**
+   *
+   * @param route
+   * @param navigator
+   * @returns {XML}
+   */
+  renderScene(route, navigator) {
+
+    SetNavigator(navigator);
+
+    const screenParams = {
+      navigator,
+      ...route
+    }
+
+    this._currentScreenId = route.id;
+
+    switch (route.id) {
+      case 'index_screen':
+        return <IndexScreen {...screenParams} />
+        break;
+      case 'articles':
+        return <ArticlesScreen {...screenParams} />
+        break;
+      case 'articles_item':
+        return <ArticleItemScreen {...screenParams} />
+        break;
+      case 'news':
+        return <NewsScreen {...screenParams} />
+        break;
+      case 'news_item':
+        return <NewsItemScreen {...screenParams} />
+        break;
+      case 'search':
+        return <SearchScreen {...screenParams} />
+        break;
+      case 'web_view':
+        return <WebViewScreen {...screenParams} />
+        break;
+      default:
+        return <IndexScreen {...screenParams} />
+    }
+  }
+
+
+  /**
+   *
+   * @returns {{LeftButton: LeftButton, Title: Title, RightButton: RightButton}}
+   * @private
+   */
+  _navBarRouteMapper() {
+    return {
+      LeftButton: (route, navigator) => {
+        return (route.id == 'index_screen' ? null :
+            <TouchableOpacity style={styles.crumbIconPlaceholder} onPress={() => { this._toggleMenu() }}>
+              <Icon name="bars" style={styles.crumbIcon}/>
+            </TouchableOpacity>
+        )
+      },
+      Title: (route) => {
+        const {navigation_params} = route;
+        return (
+          <View style={styles.title}>
+            <Text style={styles.title_blank}>&nbsp;</Text>
+            <Text style={styles.title_item}>{navigation_params.title || 'TITLE'}</Text>
+          </View>
+        );
+      },
+      RightButton: (route) => {
+        const nav = {
+          to: "search",
+          title: 'Поиск'
+        };
+        return (route.id == 'search' ? null :
+            <TouchableOpacity style={styles.crumbIconPlaceholder}>
+              <Link {...nav} >
+                <Icon name="search" style={styles.crumbIcon}/>
+              </Link>
+            </TouchableOpacity>
+        )
+      }
+    }
+  }
+
+
+  /**
    * отслеживаем swipe событие
    * сдвигаем главную View и показываем меню
    *
@@ -193,18 +200,30 @@ class Router extends Component {
    *
    * Если смещение по Y больше 100, то прячем меню
    *
+   *
+   * Смешение слоя и показ меню жестом возможен только на главном экране ->
+   * с которого стартануло приложение
+   * на всех остальных экранах можно только по клику на иконку меню
+   *
+   *
+   *
    * @param evt
    * @param gestureState
    * @returns {boolean}
    * @private
    */
   _onResponderMove(evt, gestureState) {
-    evt                   = evt.nativeEvent;
+
+    if(this.initialRoute.id != this._currentScreenId) {
+      return;
+    }
+
+    evt = evt.nativeEvent;
     const {x, y, dragX, dragY, dragBack} = this._drag;
-    const positionX       = Math.round(this.state.x + (evt.pageX - x));
-    const prevPositionX   = Math.round(x);
+    const positionX = Math.round(this.state.x + (evt.pageX - x));
+    const prevPositionX = Math.round(x);
     const revertPositionX = prevPositionX - (prevPositionX + positionX);
-    const isOpen          = this._isOpenMenu;
+    const isOpen = this._isOpenMenu;
 
     function move() {
       if (Math.abs(evt.pageY - y) > dragY && isOpen) {
@@ -212,15 +231,7 @@ class Router extends Component {
       }
 
       if (positionX > dragX && revertPositionX < 0 && !isOpen && Math.abs(evt.pageY - y) < dragY) {
-        this._isOpenMenu = true;
-        Animated.spring(
-          this.state.translateX,
-          {
-            toValue: 150,
-            duration: 300,
-            easing: Easing.elastic(2)
-          }
-        ).start();
+        this._openMenu()
         this._drag.x = evt.pageX;
       } else if (revertPositionX >= dragBack && isOpen) {
         this.resetPosition()
@@ -231,18 +242,10 @@ class Router extends Component {
     return false;
   }
 
-  resetPosition(evt) {
-    this.dragging    = false;
-    this._isOpenMenu = false;
-    Animated.spring(
-      this.state.translateX,
-      {toValue: 0, duration: 300}
-    ).start();
-  }
 
   _onStartShouldSetResponder(evt) {
     this.dragging = true;
-    this._drag    = {
+    this._drag = {
       ...this._drag,
       x: evt.nativeEvent.pageX,
       y: evt.nativeEvent.pageY
@@ -256,6 +259,38 @@ class Router extends Component {
         translateX: this.state.translateX
       }]
     };
+  }
+
+  _toggleMenu() {
+    if (this._isOpenMenu) {
+      this.resetPosition();
+    } else {
+      this._openMenu()
+    }
+  }
+
+  _openMenu() {
+    this._isOpenMenu = true;
+    Animated.spring(
+      this.state.translateX,
+      {
+        toValue: 150,
+        duration: 300,
+        easing: Easing.elastic(2)
+      }
+    ).start();
+  }
+
+  resetPosition(evt) {
+    this.dragging = false;
+    this._isOpenMenu = false;
+    Animated.spring(
+      this.state.translateX,
+      {
+        toValue: 0,
+        duration: 300
+      }
+    ).start();
   }
 
 
@@ -283,7 +318,10 @@ class Router extends Component {
       routeId
     }
 
-    dispatch({type: NAVIGATOR_CHANGE, data: route})
+    dispatch({
+      type: NAVIGATOR_CHANGE,
+      data: route
+    })
 
     if (this._isOpenMenu) {
       this.resetPosition();
@@ -303,9 +341,9 @@ class Router extends Component {
             initialRoute={this.initialRoute}
             onDidFocus={(route)=>{}}
             onWillFocus={this._onWillFocus.bind(this)}
-            renderScene={renderScene}
+            renderScene={this.renderScene.bind(this)}
             configureScene={(route, routeStack)=>CustomSceneConfig}
-            navigationBar={<Navigator.NavigationBar routeMapper={_navBarRouteMapper()} />}
+            navigationBar={<Navigator.NavigationBar routeMapper={this._navBarRouteMapper()} />}
             style={styles.navigator}/>
         </Animated.View>
       </View>

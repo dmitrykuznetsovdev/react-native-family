@@ -1,11 +1,14 @@
 const { StyleSheet } = React;
 import * as device from '_utils/device';
+import {baseStyleLayoutsContainer} from '_app/styles/base';
 
 export default StyleSheet.create({
   web_view : {
     flex: 1
   },
-
+  container : {
+    ...baseStyleLayoutsContainer
+  },
   scrollView : {
     flex: 1,
     marginTop: device.size(39),

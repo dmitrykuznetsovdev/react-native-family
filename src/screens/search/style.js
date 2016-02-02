@@ -1,5 +1,6 @@
 const { StyleSheet } = React;
 import * as device from '_utils/device';
+import {baseStyleLayoutsContainer} from '_app/styles/base';
 
 const flex   = 1;
 const center = {
@@ -14,8 +15,7 @@ export default StyleSheet.create({
     marginBottom: 10
   },
   container: {
-    flex,
-    marginTop: device.size(65)
+    ...baseStyleLayoutsContainer
   },
   wrapper: {
     flex

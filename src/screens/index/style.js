@@ -1,11 +1,10 @@
 const { StyleSheet } = React;
 import * as device from '_utils/device';
+import {baseStyleLayoutsContainer} from '_app/styles/base';
 
 export default StyleSheet.create({
   container : {
-    flex: 1,
-    marginTop: device.size(65),
-    backgroundColor: '#FFF'
+    ...baseStyleLayoutsContainer
   },
   loader: {
     flex: 1,

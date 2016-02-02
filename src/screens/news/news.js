@@ -32,6 +32,9 @@ class NewsScreen extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2
       })
     };
+
+    const { navigation_params } = this.props;
+    this._rubric = navigation_params ? navigation_params.rubric : null;
   }
 
   componentWillMount() {
@@ -66,7 +69,7 @@ class NewsScreen extends Component {
   _onEndReached() {
     const {dispatch, news, navigation_params } = this.props;
     const rubric = navigation_params ? navigation_params.rubric : null;
-    const {items, page, request } = news.news_list;
+    const { page, request } = news.news_list;
 
     if (page.next && page.next.length) {
       let pageNext = Number.parseInt(request.page);

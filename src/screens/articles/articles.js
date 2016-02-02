@@ -92,6 +92,9 @@ class ArticlesScreen extends Component {
      */
     return (
       <View style={styles.container}>
+        <View>
+          <Text style={styles.title}>{articles.title}</Text>
+        </View>
         {!articles.items.length ? null :
           <ScrollListView
             dataSource={this.state.dataSource.cloneWithRows(articles.items)}

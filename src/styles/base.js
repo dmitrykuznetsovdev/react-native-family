@@ -1,6 +1,24 @@
 const { StyleSheet } = React;
 import * as device from '_utils/device';
 
+const crumbIconPlaceholder = {
+  height: device.size(145),
+  paddingTop: device.size(10),
+  paddingRight: device.size(10),
+  paddingLeft: device.size(10)
+}
+
+export const basePaddingLayouts = {
+  padding: 10
+}
+
+export const baseStyleLayoutsContainer = {
+  flex: 1,
+  marginTop: device.size(65),
+  backgroundColor: '#FFF',
+  ...basePaddingLayouts
+}
+
 export default StyleSheet.create({
   root_view: {
     flex: 1
@@ -9,8 +27,6 @@ export default StyleSheet.create({
     flex: 1
   },
   navigator: {
-    flex: 1,
-    padding: 10,
     backgroundColor: '#ffffff'
   },
   title_blank: {
@@ -44,13 +60,10 @@ export default StyleSheet.create({
     lineHeight: device.fontSize(27)
   },
   crumbIconPlaceholder: {
-    flex: 1,
-    height: device.size(145),
-    paddingTop: device.size(10),
-    paddingRight: device.size(10),
-    paddingLeft: device.size(10)
+    ...crumbIconPlaceholder
   },
   crumbIcon: {
+    flex: 1,
     fontSize: device.fontSize(26),
     color: '#000'
   }
