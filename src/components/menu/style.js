@@ -40,20 +40,21 @@ export default StyleSheet.create({
   item,
   item_active,
   item_menu : {
-    flexDirection : 'row',
-    paddingLeft : device.size(25),
+    position : 'relative',
+    paddingLeft : device.size(45),
     borderColor : '#3F4D5A',
     borderBottomWidth : 1
   },
 
   w_icons : {
+    position : 'absolute',
+    left : device.size(8),
+    top : device.size(10),
     width  : device.size(30),
     justifyContent: 'center',
     alignItems : 'center'
   },
   icons : {
-    position : 'relative',
-    top : device.size(10),
     fontSize : device.fontSize(15),
     ...colorTextAndIcon
   }
