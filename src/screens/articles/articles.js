@@ -9,7 +9,7 @@ import React, {
   Component,
   PropTypes
 } from 'react-native';
-import {connect} from 'react-redux';
+import {connect} from 'react-redux/native';
 import styles from './style';
 import ShowcaseItems from '../../components/showcase_items';
 import ScrollListView from '../../components/scroll_list_view';

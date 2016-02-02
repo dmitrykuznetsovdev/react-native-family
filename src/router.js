@@ -13,7 +13,7 @@ import React, {
   Text,
   Image
 } from 'react-native';
-import {connect} from 'react-redux';
+import {connect} from 'react-redux/native';
 import store from './store';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -26,9 +26,8 @@ import NewsItemScreen from './screens/news_item';
 import SearchScreen from './screens/search';
 import Menu from './components/menu';
 import WebViewScreen from './screens/web_view';
-import {SetNavigator} from './components/link';
+import Link, {SetNavigator} from './components/link';
 import styles from './styles/base';
-import Link from './components/link';
 
 import { NAVIGATOR_CHANGE } from './module_dal/actions/actions';
 

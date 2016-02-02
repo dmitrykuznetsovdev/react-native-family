@@ -4,7 +4,7 @@ import React, {
   TouchableHighlight,
   Component
 } from 'react-native';
-import {connect} from 'react-redux';
+import {connect} from 'react-redux/native';
 import Link from '../../components/link';
 import _ from 'lodash';
 import {EventManager} from '../../event_manager';

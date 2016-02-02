@@ -8,7 +8,7 @@ import React, {
   Component,
   PropTypes
 } from 'react-native';
-import {connect} from 'react-redux';
+import {connect} from 'react-redux/native';
 import styles from './style';
 import CardFull from '../../components/card_full';
 
