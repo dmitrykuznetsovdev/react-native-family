@@ -77,7 +77,7 @@ class SearchLine extends Component {
           value={this.state.text}/>
 
         <TouchableOpacity style={[styles.search_icon]} onPress={this._onSearch.bind(this)}>
-          <Icon name="search" style={stylesBase.crumbIcon}/>
+          <Icon name="search" style={[stylesBase.crumbIcon, {color: '#000'}]}/>
         </TouchableOpacity>
       </View>
     );

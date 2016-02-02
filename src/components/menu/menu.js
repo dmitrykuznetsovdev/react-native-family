@@ -5,9 +5,10 @@ import React, {
   Component
 } from 'react-native';
 import {connect} from 'react-redux/native';
-import Link from '../../components/link';
 import _ from 'lodash';
-import {EventManager} from '../../event_manager';
+
+import Link from '../../components/link';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './style';
 
 import { NAVIGATOR_CHANGE } from '../../module_dal/actions/actions';
@@ -16,22 +17,26 @@ const menu_list = [
   {
     to: 'index_screen',
     title: 'Главная',
-    name: 'Главная'
+    name: 'Главная',
+    icon : 'home'
   },
   {
     to: 'articles',
     title: 'Статьи',
-    name: 'Статьи'
+    name: 'Статьи',
+    icon : 'star'
   },
   {
     to: 'news',
     title: 'Новости',
-    name: 'Новости'
+    name: 'Новости',
+    icon : 'newspaper-o'
   },
   {
     to: 'search',
     title: 'Поиск',
-    name: 'Поиск'
+    name: 'Поиск',
+    icon : 'search'
   }
 ]
 
@@ -42,17 +47,15 @@ const Menu = (props) => {
 
   return (
     <View style={styles.menu}>
-      <Text style={styles.title}>Меню</Text>
-      <Text>{''}</Text>
-
       {menu_list.map((item, i)=> {
         const styl = item.to == dataNavigator.routeId ?
-          styles.item_active :
-          styles.item;
+          styles.item_active : {}
+
 
         return (
-          <Link {...item} key={i}>
-            <Text style={styl}>{item.name}</Text>
+          <Link {...item} key={i} style={[styles.item_menu, styl]}>
+            <Icon name={`${item.icon}`} style={styles.icons}/>
+            <Text style={styles.item}>{item.name}</Text>
           </Link>
         )
       })}

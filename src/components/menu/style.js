@@ -2,35 +2,57 @@ import React from 'react-native';
 const { StyleSheet } = React;
 import * as device from '../../utils/device';
 
-let item = {
+
+const colorTextAndIcon = {
+  color : '#AFB5B9'
+}
+
+const item = {
   flex: 1,
-  marginBottom : 5,
-  fontSize: device.fontSize(18),
-  color : '#fff'
+  paddingTop : device.size(8),
+  paddingBottom : device.size(8),
+  fontSize: device.fontSize(15),
+  ...colorTextAndIcon
 }
 
 let item_active = {
-  ...item,
-  color : 'red'
+  backgroundColor : '#2F3A47'
 }
 
 export default StyleSheet.create({
   menu: {
     flex: 1,
     flexDirection : 'column',
-    padding: 5,
-    backgroundColor: '#000',
+    paddingTop: device.size(65),
+    backgroundColor: '#384554',
     position: 'absolute',
     top: 0,
     left: 0,
     bottom : 0,
     right: 0,
-    opacity : 0.8
+    opacity : 0.9
   },
   title: {
-    marginVertical: 20
+    marginVertical: 20,
+    fontSize : device.fontSize(25),
+    color : '#fff'
   },
   item,
-  item_active
+  item_active,
+  item_menu : {
+    flexDirection : 'row',
+    paddingLeft : device.size(25),
+    borderColor : '#3F4D5A',
+    borderBottomWidth : 1
+  },
+
+  icons : {
+    position : 'relative',
+    top : device.size(10),
+    width  : device.size(30),
+
+    fontSize : device.fontSize(15),
+    ...colorTextAndIcon
+  }
 });
 

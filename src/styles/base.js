@@ -56,7 +56,7 @@ export default StyleSheet.create({
     lineHeight: device.fontSize(34)
   },
   title: {
-    backgroundColor : '#3362c3',
+    backgroundColor : '#3C74A6',
     borderBottomColor: '#E8E8E6',
     borderBottomWidth: 1,
     position : 'relative',
