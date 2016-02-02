@@ -5,7 +5,7 @@ import {
 		HEADER_SUBMENU_HIDE,
 		HEADER_SUBMENU_SET_TYPE,
 		HEADER_SET_DATA
-} from '_actions/actions';
+} from '../actions/actions';
 
 
 const header = (state = {

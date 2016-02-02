@@ -5,18 +5,21 @@ import React, {
   Navigator,
   Component
 } from 'react-native';
-import {connect} from 'react-redux';
+import {connect} from 'react-redux/native';
 import styles from './style';
-import CardFull from '_components/card_full';
+import CardFull from '../../components/card_full';
 
 
-import { getArticleDetail, getArticleRelated } from '_actions/articles';
+import {
+  getArticleDetail,
+  getArticleRelated
+} from '../../module_dal/actions/articles';
 
 import {
   getNewsShowcases,
   getArticleDetailShowcase,
   loadMoreShowcase
-} from '_actions/showcase';
+} from '../../module_dal/actions/showcase';
 
 class ArticleItemScreen extends Component {
 

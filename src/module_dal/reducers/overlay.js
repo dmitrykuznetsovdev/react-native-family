@@ -1,6 +1,6 @@
 import {
     OVERLAY_SHOW,
-} from '_actions/actions';
+} from '../actions/actions';
 
 
 const overlay = (state = {

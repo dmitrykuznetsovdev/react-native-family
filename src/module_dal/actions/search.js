@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {SearchServices} from '_services/search_services';
+import {SearchServices} from '../services/search_services';
 
 
 import {

@@ -7,7 +7,7 @@ import {
 		GET_ARTICLE_DETAIL,
 		GET_ARTICLE_DETAIL_RELATED,
     ARTICLES_SHOW_LOADER
-} from '_actions/actions';
+} from '../actions/actions';
 
 
 

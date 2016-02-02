@@ -2,7 +2,7 @@ import {
     GET_SECTION_SHOWCASE,
     APPEND_SECTION_SHOWCASE,
     SET_TITLE_SHOWCASE
-} from '_actions/actions';
+} from '../actions/actions';
 
 const showcase = (state = {
   showcases1: [],

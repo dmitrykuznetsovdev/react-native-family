@@ -1,9 +1,9 @@
 import _ from 'lodash';
 
-import {NewsServices} from '_services/news_services';
-import {TagsServices} from '_services/tags_services';
-import {ShowcaseServices} from '_services/showcase_services';
-import {RubricServices} from '_services/rubric_services';
+import {NewsServices} from '../services/news_services';
+import {TagsServices} from '../services/tags_services';
+import {ShowcaseServices} from '../services/showcase_services';
+import {RubricServices} from '../services/rubric_services';
 
 import {
     GET_UNIQUE_NEWS_CONTENT,

@@ -1,5 +1,6 @@
+import React from 'react-native';
 const { StyleSheet } = React;
-import * as device from '_utils/device';
+import * as device from '../../utils/device';
 
 let item = {
   flex: 1,

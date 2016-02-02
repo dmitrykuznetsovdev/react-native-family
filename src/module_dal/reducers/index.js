@@ -2,8 +2,6 @@ import { combineReducers } from 'redux';
 
 import articles from './articles';
 import news from './news';
-import products from './products';
-import application from './application_state';
 import looks from './looks';
 import showcase from './showcase';
 import tags from './tags';
@@ -23,8 +21,6 @@ let reducers = combineReducers({
   articles,
   search,
   news,
-  products,
-  application,
   showcase,
   looks,
   sections

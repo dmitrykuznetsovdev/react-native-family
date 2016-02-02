@@ -9,9 +9,8 @@ import {
     SEARCH_LOADER,
     SEARCH_GET_PREDICATES,
     SEARCH_RESET_PREDICATES,
-    SEARCH_SHOW_FIELD,
     SEARCH_MORE
-} from '_actions/actions';
+} from '../actions/actions';
 
 
 const search = (state = {
@@ -93,11 +92,6 @@ const search = (state = {
       return {
         ...state,
         loader : action.loader
-      }
-    case SEARCH_SHOW_FIELD:
-      return {
-        ...state,
-        opened : action.open
       }
     default:
       return {...state}

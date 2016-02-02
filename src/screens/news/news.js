@@ -8,18 +8,18 @@ import React, {
   Component,
   PropTypes
 } from 'react-native';
-import {connect} from 'react-redux';
+import {connect} from 'react-redux/native';
 import styles from './style';
-import ShowcaseItems from '_components/showcase_items';
-import ScrollListView from '_components/scroll_list_view';
+import ShowcaseItems from '../../components/showcase_items';
+import ScrollListView from '../../components/scroll_list_view';
 
-import { fetchNews, fetchNewsByRubric } from '_actions/news';
-import { getRubricsBySlug } from '_actions/common';
+import { fetchNews, fetchNewsByRubric } from '../../module_dal/actions/news';
+import { getRubricsBySlug } from '../../module_dal/actions/common';
 import {
   getNewsShowcases,
   fetchNewsRubricShowcases,
   loadMoreShowcase
-} from '_actions/showcase';
+} from '../../module_dal/actions/showcase';
 
 class NewsScreen extends Component {
   constructor(props, context) {

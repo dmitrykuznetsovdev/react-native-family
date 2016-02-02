@@ -8,18 +8,18 @@ import React, {
   Component,
   PropTypes
 } from 'react-native';
-import {connect} from 'react-redux';
+import {connect} from 'react-redux/native';
 import styles from './style';
-import CardFull from '_components/card_full';
+import CardFull from '../../components/card_full';
 
 
-import { getNewsById, getNewsRelated } from '_actions/news';
+import { getNewsById, getNewsRelated } from '../../module_dal/actions/news';
 
 import {
   getNewsShowcases,
   getNewsDetailShowcase,
   loadMoreShowcase
-} from '_actions/showcase';
+} from '../../module_dal/actions/showcase';
 
 class NewsItemScreen extends Component {
   constructor(props, context) {

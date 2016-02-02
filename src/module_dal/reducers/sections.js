@@ -1,6 +1,6 @@
 import {
     SET_SECTION_FOOTER_TEXT
-} from '_actions/actions';
+} from '../actions/actions';
 
 const sections = (state = {
   footer_text : ''

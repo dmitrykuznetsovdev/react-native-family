@@ -13,23 +13,22 @@ import React, {
   Text,
   Image
 } from 'react-native';
-import {connect} from 'react-redux';
+import {connect} from 'react-redux/native';
+import store from './store';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import * as device from '_utils/device';
-import IndexScreen from '_screens/index';
-import ArticlesScreen from '_screens/articles';
-import ArticleItemScreen from '_screens/article_item';
-import NewsScreen from '_screens/news';
-import NewsItemScreen from '_screens/news_item';
-import SearchScreen from '_screens/search';
-import Menu from '_components/menu';
-import WebViewScreen from '_screens/web_view';
-import {SetNavigator} from '_components/link';
-import styles, {StatusBarStyle} from './styles/base';
-import Link from '_components/link';
+import IndexScreen from './screens/index';
+import ArticlesScreen from './screens/articles';
+import ArticleItemScreen from './screens/article_item';
+import NewsScreen from './screens/news';
+import NewsItemScreen from './screens/news_item';
+import SearchScreen from './screens/search';
+import Menu from './components/menu';
+import WebViewScreen from './screens/web_view';
+import Link, {SetNavigator} from './components/link';
+import styles from './styles/base';
 
-import { NAVIGATOR_CHANGE } from '_actions/actions';
+import { NAVIGATOR_CHANGE } from './module_dal/actions/actions';
 
 const SCREEN_WIDTH  = Dimensions.get('window').width;
 const BaseConfig    = Navigator.SceneConfigs.FloatFromRight;
@@ -317,7 +316,6 @@ class Router extends Component {
    * @private
    */
   _onWillFocus(route) {
-    const { dispatch } = this.props;
     let routeId = route.id;
 
     if (route.id) {
@@ -333,7 +331,7 @@ class Router extends Component {
       routeId
     }
 
-    dispatch({
+    store.dispatch({
       type : NAVIGATOR_CHANGE,
       data : route
     })
@@ -366,7 +364,7 @@ class Router extends Component {
   }
 }
 
-export default connect()(Router);
+export default Router;
 
 
 

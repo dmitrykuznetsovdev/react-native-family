@@ -7,7 +7,7 @@ import {
     FILTER_EXCLUDE_LOOK,
     LOOK_SELECTED,
     LOOK_UN_SELECTED
-} from '_actions/actions';
+} from '../actions/actions';
 
 
 /**

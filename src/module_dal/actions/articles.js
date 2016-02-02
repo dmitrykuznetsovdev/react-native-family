@@ -1,11 +1,11 @@
 import _ from 'lodash';
 
-import {LookServices} from '_services/look_services';
-import {NewsServices} from '_services/news_services';
-import {TagsServices} from '_services/tags_services';
-import {ShowcaseServices} from '_services/showcase_services';
-import {ArticleServices} from '_services/article_services';
-import {RubricServices} from '_services/rubric_services';
+import {LookServices} from '../services/look_services';
+import {NewsServices} from '../services/news_services';
+import {TagsServices} from '../services/tags_services';
+import {ShowcaseServices} from '../services/showcase_services';
+import {ArticleServices} from '../services/article_services';
+import {RubricServices} from '../services/rubric_services';
 
 
 import {

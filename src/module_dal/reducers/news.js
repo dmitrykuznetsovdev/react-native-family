@@ -5,7 +5,7 @@ import {
 		GET_NEWS_DETAIL_RELATED,
 		GET_NEWS_BY_RUBRIC,
 		GET_NEWS_RUBRIC_INFO
-} from '_actions/actions';
+} from '../actions/actions';
 
 const news = (state = {
 	news_list: {

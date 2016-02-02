@@ -10,10 +10,10 @@ import React, {
   Component,
   PropTypes
 } from 'react-native';
-import {connect} from 'react-redux';
-import Link from '_components/link';
-import Filters from '_utils/filters';
-import {imageTemplateCrop} from '_utils/utils';
+import {connect} from 'react-redux/native';
+import Link from '../../components/link';
+import Filters from '../../utils/filters';
+import {imageTemplateCrop} from '../../utils/utils';
 
 import styles from './style';
 

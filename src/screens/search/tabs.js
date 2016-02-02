@@ -6,7 +6,7 @@ import React, {
   TouchableOpacity,
   Component
 } from 'react-native';
-import {connect} from 'react-redux';
+import {connect} from 'react-redux/native';
 import styles from './style';
 
 const items = []
