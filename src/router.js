@@ -26,6 +26,7 @@ import Menu from './components/menu';
 import WebViewScreen from './screens/web_view';
 import Link, {SetNavigator} from './components/link';
 import styles from './styles/base';
+import _ from 'lodash';
 
 import { NAVIGATOR_CHANGE } from './module_dal/actions/actions';
 
@@ -45,8 +46,8 @@ StatusBarIOS.setStyle(1);
  */
 const CustomLeftToRightGesture = {
   ...BaseConfig.gestures,
-  snapVelocity : 8,
-  edgeHitWidth : SCREEN_WIDTH
+  snapVelocity: 8,
+  edgeHitWidth: SCREEN_WIDTH
 }
 
 /**
@@ -55,10 +56,10 @@ const CustomLeftToRightGesture = {
  */
 const CustomSceneConfig = {
   ...BaseConfig,
-  springTension : 100,
-  springFriction : 1,
-  gestures : {
-    pop : CustomLeftToRightGesture
+  springTension: 100,
+  springFriction: 1,
+  gestures: {
+    pop: CustomLeftToRightGesture
   }
 }
 
@@ -71,37 +72,37 @@ class Router extends Component {
     super(props)
 
     this.state = {
-      x : 0,
-      translateX : new Animated.Value(0),
-      opacity : 1
+      x: 0,
+      translateX: new Animated.Value(0),
+      opacity: 1
     }
 
     this.dragging    = false;
     this._isOpenMenu = false;
     this._drag       = {
-      x : 0,
-      y : 0,
-      dragX : 115,
-      dragY : 100,
-      dragBack : 60
+      x: 0,
+      y: 0,
+      dragX: 115,
+      dragY: 100,
+      dragBack: 60
     }
 
     this._currentScreenId = '';
 
     this.initialRoute = {
-      title : 'App Name Test',
-      type : 'tab',
-      id : 'news',
-      navigation_params : {
-        title : 'Новости'
+      title: 'App Name Test',
+      type: 'tab',
+      id: 'news',
+      navigation_params: {
+        title: 'Новости'
       }
     }
 
     this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder : (evt, gestureState) => false,
-      onStartShouldSetPanResponderCapture : this._onStartShouldSetResponder.bind(this),
-      onMoveShouldSetPanResponder : this._onResponderMove.bind(this),
-      onMoveShouldSetPanResponderCapture : (evt, gestureState) => false
+      onStartShouldSetPanResponder: (evt, gestureState) => false,
+      onStartShouldSetPanResponderCapture: this._onStartShouldSetResponder.bind(this),
+      onMoveShouldSetPanResponder: this._onResponderMove.bind(this),
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => false
     });
   }
 
@@ -161,7 +162,7 @@ class Router extends Component {
    */
   _navBarRouteMapper() {
     return {
-      LeftButton : (route, navigator) => {
+      LeftButton: (route, navigator) => {
         if (this.initialRoute.id != route.id) {
           return (
             <TouchableOpacity style={styles.crumbIconPlaceholder} onPress={() => { navigator.pop() }}>
@@ -176,7 +177,7 @@ class Router extends Component {
           )
         }
       },
-      Title : (route) => {
+      Title: (route) => {
         const {navigation_params} = route;
         return (
           <View style={styles.title}>
@@ -185,19 +186,19 @@ class Router extends Component {
           </View>
         );
       },
-      RightButton : (route, navigator) => {
+      RightButton: (route, navigator) => {
 
         const nav = {
-          id : 'search',
-          title : 'Поиск',
-          navigation_params : {
-            title : 'Поиск'
+          id: 'search',
+          title: 'Поиск',
+          navigation_params: {
+            title: 'Поиск'
           }
         };
         return (route.id == 'search' ? null :
             <TouchableOpacity style={styles.crumbIconPlaceholder}
                               onPress={() => { navigator.push(nav)}}>
-                <Icon name="search" style={styles.crumbIcon}/>
+              <Icon name="search" style={styles.crumbIcon}/>
             </TouchableOpacity>
         )
       }
@@ -260,16 +261,16 @@ class Router extends Component {
     this.dragging = true;
     this._drag    = {
       ...this._drag,
-      x : evt.nativeEvent.pageX,
-      y : evt.nativeEvent.pageY
+      x: evt.nativeEvent.pageX,
+      y: evt.nativeEvent.pageY
     }
     return false;
   }
 
   getStyle() {
     return {
-      transform : [{
-        translateX : this.state.translateX
+      transform: [{
+        translateX: this.state.translateX
       }]
     };
   }
@@ -287,9 +288,9 @@ class Router extends Component {
     Animated.spring(
       this.state.translateX,
       {
-        toValue : SCREEN_WIDTH - 100,
-        duration : 300,
-        easing : Easing.elastic(2)
+        toValue: SCREEN_WIDTH - 100,
+        duration: 300,
+        easing: Easing.elastic(2)
       }
     ).start();
   }
@@ -300,39 +301,40 @@ class Router extends Component {
     Animated.spring(
       this.state.translateX,
       {
-        toValue : 0,
-        duration : 300
+        toValue: 0,
+        duration: 300
       }
     ).start();
   }
-
 
   /**
    * Событие Navigator, после того как отрисуется view
    * создаем событие NAVIGATOR_CHANGE для меню
    *
-   * @param route
+   * @param navigator
    * @private
    */
-  _onWillFocus(route) {
-    let routeId = route.id;
+  _onDidFocus(navigator) {
 
-    if (route.id) {
-      if (route.id.indexOf('articles') != -1) {
+    const lastRoute = _.last(navigator.getCurrentRoutes())
+    let routeId     = lastRoute.id;
+
+    if (routeId) {
+      if (routeId.indexOf('articles') != -1) {
         routeId = 'articles';
-      } else if (route.id.indexOf('news') != -1) {
+      } else if (routeId.indexOf('news') != -1) {
         routeId = 'news';
       }
     }
 
-    route = {
-      ...route,
+    const route = {
+      ...lastRoute,
       routeId
     }
 
     store.dispatch({
-      type : NAVIGATOR_CHANGE,
-      data : route
+      type: NAVIGATOR_CHANGE,
+      data: route
     })
 
     if (this._isOpenMenu) {
@@ -350,8 +352,9 @@ class Router extends Component {
         <Animated.View style={[styles.root_view_wrapper, this.getStyle()]}>
           <Navigator
             initialRoute={this.initialRoute}
-            onDidFocus={(route)=>{}}
-            onWillFocus={this._onWillFocus.bind(this)}
+            ref={navigator => {
+              navigator && navigator.navigationContext.addListener('didfocus', this._onDidFocus.bind(this, navigator));
+            }}
             renderScene={this.renderScene.bind(this)}
             configureScene={(route, routeStack)=>CustomSceneConfig}
             navigationBar={<Navigator.NavigationBar routeMapper={this._navBarRouteMapper()} />}

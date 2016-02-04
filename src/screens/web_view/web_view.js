@@ -21,7 +21,7 @@ class WebViewScreen extends Component {
 
 
     return (
-      <View style={styles.web_view}>
+      <View style={styles.container}>
         <WebView
           url={navigation_params.url}
           automaticallyAdjustContentInsets={false}

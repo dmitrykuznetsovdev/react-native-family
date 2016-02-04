@@ -2,10 +2,12 @@ import React, {
   Text,
   View,
   ListView,
+  InteractionManager,
   Navigator,
   Component
 } from 'react-native';
 import {connect} from 'react-redux';
+import _ from 'lodash';
 import styles from './style';
 import CardFull from '../../components/card_full';
 import Loader from '../../components/loader';
@@ -26,11 +28,24 @@ class ArticleItemScreen extends Component {
 
   constructor(props, context) {
     super(props, context);
+    const {navigator}  = this.props;
+    this.state = {
+      loader: true
+    }
 
+    /*const once                = _.once(this.fetchData.bind(this));
+    this.didFocusSubscription =
+      navigator.navigationContext.addListener('didfocus', once);*/
   }
 
   componentDidMount() {
-    this.fetchData()
+    InteractionManager.runAfterInteractions(() => {
+      this.fetchData()
+    });
+  }
+
+  componentWillUnmount() {
+    //this.didFocusSubscription.remove();
   }
 
   /**
@@ -38,16 +53,22 @@ class ArticleItemScreen extends Component {
    * article
    */
   fetchData() {
+
     let {dispatch, navigation_params} = this.props;
     const slug = navigation_params.slug;
+
     dispatch(getArticleDetail(slug))
+      .then(()=>this.setState({loader: false}))
+      .catch(()=>this.setState({loader: false}))
+
     dispatch(getArticleRelated(slug))
     dispatch(getArticleDetailShowcase())
   }
 
   render() {
-    let { articles, navigator } = this.props;
-    let { related, detail, loader } = articles;
+    const { articles, navigator } = this.props;
+    const { loader } = this.state;
+    const { related, detail } = articles;
 
     if (loader || !detail.item) {
       return <Loader />
