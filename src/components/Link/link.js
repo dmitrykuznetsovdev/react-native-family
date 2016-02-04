@@ -1,7 +1,7 @@
 import React, {
   Text,
   View,
-  TouchableHighlight,
+  TouchableWithoutFeedback,
   Component
 } from 'react-native';
 import styles from './style';
@@ -34,11 +34,11 @@ const Link = (props) => {
   }
 
   return (
-    <TouchableHighlight onPress={(evt) => _onPress(evt)}>
+    <TouchableWithoutFeedback onPress={(evt) => _onPress(evt)}>
       <View style={props.style}>
         {props.children}
       </View>
-    </TouchableHighlight>
+    </TouchableWithoutFeedback>
   )
 }
 

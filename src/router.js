@@ -13,7 +13,6 @@ import React, {
   Text,
   Image
 } from 'react-native';
-import {connect} from 'react-redux/native';
 import store from './store';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -350,7 +349,6 @@ class Router extends Component {
 
         <Animated.View style={[styles.root_view_wrapper, this.getStyle()]}>
           <Navigator
-            ref="nav"
             initialRoute={this.initialRoute}
             onDidFocus={(route)=>{}}
             onWillFocus={this._onWillFocus.bind(this)}

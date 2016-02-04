@@ -8,7 +8,7 @@ import React, {
   Component,
   PropTypes
 } from 'react-native';
-import {connect} from 'react-redux/native';
+import {connect} from 'react-redux';
 import styles from './style';
 import CardFull from '../../components/card_full';
 import Loader from '../../components/loader';
@@ -28,7 +28,20 @@ class NewsItemScreen extends Component {
   }
 
   componentDidMount() {
+    console.log('componentDidMount');
+  }
+
+  componentWillMount() {
+    console.log('componentWiilMount');
     this.fetchData()
+  }
+
+  componentWillUnmount(){
+    console.log('componentWillUnmount');
+  }
+
+  componentWillUpdate(){
+    console.log('componentWillUpdate');
   }
 
   /**

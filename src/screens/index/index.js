@@ -8,7 +8,7 @@ import React, {
   Component,
   PropTypes
 } from 'react-native';
-import {connect} from 'react-redux/native';
+import {connect} from 'react-redux';
 import styles from './style';
 import Loader from '../../components/loader';
 

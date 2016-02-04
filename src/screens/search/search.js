@@ -8,7 +8,7 @@ import React, {
   Component,
   PropTypes
 } from 'react-native';
-import {connect} from 'react-redux/native';
+import {connect} from 'react-redux';
 import styles from './style';
 import ScrollListView from '../../components/scroll_list_view';
 import CardPreview from '../../components/card_full/card_preview';

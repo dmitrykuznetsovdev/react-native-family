@@ -3,7 +3,7 @@
  * https://github.com/jhabdas/react-native-webpack-starter-kit
  */
 import React, {AppRegistry, Component} from 'react-native';
-import { Provider } from 'react-redux/native';
+import { Provider } from 'react-redux';
 import store from './src/store';
 import Raven from 'raven-js';
 import Router from './src/router';
@@ -30,7 +30,7 @@ class Root extends Component {
   render() {
     return (
       <Provider store={store}>
-        {() => <Router {...this.props} />}
+        <Router {...this.props} />
       </Provider>
     );
   }

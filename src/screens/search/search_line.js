@@ -10,7 +10,7 @@ import React, {
   PropTypes
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {connect} from 'react-redux/native';
+import {connect} from 'react-redux';
 import styles from './style';
 import stylesBase from '../../styles/base';
 
