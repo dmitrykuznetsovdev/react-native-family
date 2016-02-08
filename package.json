@@ -6,7 +6,7 @@
     "startApp": "node_modules/react-native/packager/packager.sh --port 6000",
     "start": "NODE_ENV=development TYPE_ENV=development npm run startApp",
     "postinstall": "find node_modules -type f -name .babelrc | grep -v /react-native/ | xargs rm",
-    "buildIOS": "react-native bundle --entry-file index.ios.js --bundle-output  main.jsbundle"
+    "buildIOS": "react-native bundle --entry-file index.ios.js --bundle-output  main.jsbundle --dev=false --minify=true --platform=ios"
   },
   "dependencies": {
     "events": "^1.1.0",
