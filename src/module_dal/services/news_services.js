@@ -62,7 +62,7 @@ const NewsServices = {
     return Http.get({
       url : '/api/v1/content/sections/news_rubric.json'
     });
-  },
+  }
 }
 
 

@@ -6,7 +6,6 @@ import React, {
   Navigator,
   Component
 } from 'react-native';
-import {connect} from 'react-redux';
 import _ from 'lodash';
 import styles from './style';
 import CardFull from '../../components/card_full';
@@ -30,7 +29,15 @@ class ArticleItemScreen extends Component {
     super(props, context);
     const {navigator}  = this.props;
     this.state = {
-      loader: true
+      loader: true,
+      articles : {
+        detail : {},
+        related : {},
+        items : [],
+        title : 'Статьи',
+        nextPage : '',
+        loader : false
+      }
     }
 
     /*const once                = _.once(this.fetchData.bind(this));
@@ -40,7 +47,7 @@ class ArticleItemScreen extends Component {
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
-      this.fetchData()
+      //this.fetchData()
     });
   }
 
@@ -54,20 +61,20 @@ class ArticleItemScreen extends Component {
    */
   fetchData() {
 
-    let {dispatch, navigation_params} = this.props;
+    let { navigation_params} = this.props;
     const slug = navigation_params.slug;
 
-    dispatch(getArticleDetail(slug))
+    /*dispatch(getArticleDetail(slug))
       .then(()=>this.setState({loader: false}))
       .catch(()=>this.setState({loader: false}))
 
     dispatch(getArticleRelated(slug))
-    dispatch(getArticleDetailShowcase())
+    dispatch(getArticleDetailShowcase())*/
   }
 
   render() {
-    const { articles, navigator } = this.props;
-    const { loader } = this.state;
+    const { navigator } = this.props;
+    const { loader, articles } = this.state;
     const { related, detail } = articles;
 
     if (loader || !detail.item) {
@@ -87,7 +94,4 @@ class ArticleItemScreen extends Component {
   }
 }
 
-export default connect(state => ({
-  showcases: state.showcase,
-  articles: state.articles
-}))(ArticleItemScreen);
+export default ArticleItemScreen

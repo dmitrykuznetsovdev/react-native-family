@@ -13,7 +13,6 @@ import React, {
   Text,
   Image
 } from 'react-native';
-import store from './store';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IndexScreen from './screens/index';
@@ -29,6 +28,7 @@ import styles from './styles/base';
 import _ from 'lodash';
 
 import { NAVIGATOR_CHANGE } from './module_dal/actions/actions';
+import { EventManager } from './event_manager';
 
 const SCREEN_WIDTH  = Dimensions.get('window').width;
 const BaseConfig    = Navigator.SceneConfigs.FloatFromRight;
@@ -332,10 +332,7 @@ class Router extends Component {
       routeId
     }
 
-    store.dispatch({
-      type: NAVIGATOR_CHANGE,
-      data: route
-    })
+    EventManager.emit(NAVIGATOR_CHANGE, {data : route} )
 
     if (this._isOpenMenu) {
       this.resetPosition();

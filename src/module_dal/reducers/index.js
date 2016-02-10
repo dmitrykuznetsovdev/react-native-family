@@ -13,17 +13,18 @@ import overlay from './overlay';
 import navigator from './navigator';
 
 let reducers = combineReducers({
-  navigator,
+  /*
   overlay,
-  header,
+  header,*/
+  navigator,
   menu,
-  tags,
+  /*tags,
   articles,
   search,
   news,
   showcase,
   looks,
-  sections
+  sections*/
 });
 
 

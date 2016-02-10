@@ -6,7 +6,6 @@ import React, {
   TouchableOpacity,
   Component
 } from 'react-native';
-import {connect} from 'react-redux';
 import styles from './style';
 
 const items = []
@@ -33,11 +32,11 @@ const Item = (props) => {
   const contentType = (content_type == 'article') ? 'articles' : content_type;
   const isActive    = (activeTab == contentType);
   const newTitle    = (title == 'Все результаты') ? 'Все' : title;
-  const url         = {url: urls.search, contentType};
+  const tabData         = {url: urls.search, contentType};
 
 
   return (
-    <TouchableOpacity style={styles.tabContent} onPress={(evt) => onTabClick(url)}>
+    <TouchableOpacity style={styles.tabContent} onPress={(evt) => onTabClick(tabData)}>
       <Text style={[styles.tabText, {color: isActive ? 'blue' : '#000'}]}>{newTitle}</Text>
       <Text style={styles.tabTextCount}>{props.count}</Text>
     </TouchableOpacity>

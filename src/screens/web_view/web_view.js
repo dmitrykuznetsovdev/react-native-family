@@ -5,7 +5,6 @@ import React, {
   ScrollView,
   Component
 } from 'react-native';
-import {connect} from 'react-redux';
 import styles from './style';
 import Filters from '../../utils/filters';
 
@@ -17,7 +16,7 @@ class WebViewScreen extends Component {
   }
 
   render() {
-    let {dispatch, navigation_params} = this.props;
+    let { navigation_params } = this.props;
 
 
     return (
@@ -37,4 +36,4 @@ class WebViewScreen extends Component {
   }
 }
 
-export default connect()(WebViewScreen);
+export default WebViewScreen;

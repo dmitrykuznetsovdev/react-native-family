@@ -10,36 +10,22 @@ import React, {
   PropTypes
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {connect} from 'react-redux';
 import styles from './style';
 import stylesBase from '../../styles/base';
-
-import { SEARCH_RESET_PREDICATES } from '../../module_dal/actions/actions'
-import { fetchTabs, fetchSearchQuery } from '../../module_dal/actions/search';
 
 class SearchLine extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state    = {
+    this.state = {
       text: '',
       saveText: ''
     };
-    this._loading = false;
   }
 
-  componentWillMount() {
-    const { dispatch } = this.props;
-  }
 
-	/**
-   *
-   * @private
-   */
   _onSearch() {
-    const { dispatch } = this.props;
     const {text, saveText} = this.state;
-    this._loading = true;
 
     if (text && text.length && text !== saveText) {
       this.state = {
@@ -47,16 +33,7 @@ class SearchLine extends Component {
         saveText: text
       }
 
-      Promise.all([
-          dispatch(fetchTabs(text, '')),
-          dispatch(fetchSearchQuery('', text))
-        ])
-        .then(() => {
-          this._loading = false
-        })
-        .catch(()=> {
-          this._loading = false
-        })
+      this.props._onSearch(text)
     }
   }
 
@@ -84,7 +61,4 @@ class SearchLine extends Component {
   }
 }
 
-export default connect(state => ({
-  search: state.search
-}))(SearchLine);
-
+export default SearchLine;
